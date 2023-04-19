@@ -1,13 +1,13 @@
 {
   "expo": {
-    "name": "KushalKaamgar",
+    "name": "Kushal Kaamgar",
     "slug": "KushalKaamgar",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/images/logo-vector.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -15,16 +15,36 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "buildNumber": "1.0.0",
+      "supportsTablet": true,
+      "bundleIdentifier": "com.KushalKaamgar.datacollection"
     },
     "android": {
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.KushalKaamgar.datacollection"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "cameraPermission": "The app accesses your camera to let you take photos."
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "30c05416-4571-4c8f-bf4c-a9fc1b8ae309"
+      }
     }
   }
 }
