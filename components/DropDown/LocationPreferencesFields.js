@@ -24,12 +24,15 @@ const LocationPreferencesFields = ({
 
     ])
 
+
+
+
     const [value, setValue] = useState(null);
     const [isFocus, setIsFocus] = useState(false);
 
     const handleDroppdownOptionSelect = (item) => {
         setValue(item.value);
-        const newData = data.filter((d) => d.label !== item.label && d.value !== item.value)
+        const newData = data.filter((d) =>  d.value !== item.value)
         setData(newData);
         onChangeLocationPrefId(item.value);
         onChnageLocationPrefOrder(index + 1);
@@ -46,13 +49,13 @@ const LocationPreferencesFields = ({
                     alignItems: 'center',
                     marginTop: 20,
                 }}>
-                <Text style={{ marginLeft: 20, color: '#1B75BB', fontFamily: 'zwodrei' }}>Location Preference {index + 1} </Text>
+                <Text style={{ marginLeft: 20, color: '#676A6C', fontFamily: 'zwodrei' }}>Location Preference {index + 1} </Text>
                 <TouchableOpacity
                     style={{ marginRight: 20 }}
                     onPress={() => {
                         onClickRemove();
                     }}>
-                    <Text style={{ color: '#53C1BA', fontFamily: 'zwodrei' }}>Remove</Text>
+                    <Text style={{ color: '#676A6C', fontFamily: 'zwodrei' }}>Remove</Text>
                 </TouchableOpacity>
             </View>
             <View>
@@ -108,7 +111,7 @@ const styles = StyleSheet.create({
         height: 53,
         marginBottom: 12,
         marginTop: 12,
-        borderWidth: 2,
+        borderWidth: 1,
         borderColor: '#25c4b9',
         borderRadius: 8,
         paddingHorizontal: 14,
@@ -118,6 +121,7 @@ const styles = StyleSheet.create({
         marginRight: 5,
     },
     label: {
+        color:'#676A6C',
         position: 'absolute',
         backgroundColor: 'white',
         left: 22,
@@ -129,11 +133,13 @@ const styles = StyleSheet.create({
         borderRadius: 8,
     },
     placeholderStyle: {
+        color:'#676A6C',
         fontSize: 14,
         fontFamily: 'zwodrei',
         borderRadius: 8,
     },
     selectedTextStyle: {
+        color:'#676A6C',
         fontSize: 16,
         fontFamily: 'zwodrei',
     },

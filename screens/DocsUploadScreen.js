@@ -5,6 +5,7 @@ import ImagePicker from '../components/ui/ImagePicker'
 import { AuthContext } from '../store/auth-context'
 import { string } from 'yup';
 import * as FileSystem from 'expo-file-system';
+import { Card } from 'react-native-elements';
 
 const DocsUploadScreen = () => {
 
@@ -155,25 +156,35 @@ const DocsUploadScreen = () => {
             <View style={styles.container}>
 
                 <View style={styles.wrapper}>
+                    
+                    <Card elevation={7} containerStyle={{ borderRadius: 10, marginBottom: 5 }}>
 
-                    <Text style={styles.textshown}>Upload Photo</Text>
-                    <ImagePicker onTakeImage={takeImageHandler} />
+                    <Text style={styles.textshowncenter}>Upload Photo</Text>
+                        <ImagePicker onTakeImage={takeImageHandler} />
+                    </Card>
 
-                    <Text style={styles.textshown}>Upload Adhaar Photo</Text>
+                    <Card elevation={7} containerStyle={{ borderRadius: 10, marginBottom: 5 }}>
+
+                        <Text style={styles.textshowncenter}>Upload Adhaar Photo</Text>
 
                     <Text style={styles.textshown}>1. Front Image</Text>
                     <ImagePicker onTakeImage={takeImageHandlerAdhaarPicFront} />
 
                     <Text style={styles.textshown}>2. Back Image</Text>
                     <ImagePicker onTakeImage={takeImageHandlerAdhaarPicBack} />
+                   </Card>
+                        
+                    <Card elevation={7} containerStyle={{ borderRadius: 10, marginBottom: 5 }}>
+                        <Text style={styles.textshowncenter}>Upload OtherID Photo</Text>
 
-                    <Text style={styles.textshown}>Upload OtherID Photo</Text>
-
-                    <Text style={styles.textshown}>Front Image</Text>
+                    <Text style={styles.textshown}>1. Front Image</Text>
                     <ImagePicker onTakeImage={takeImageHandlerOtherIDPicFront} />
 
-                    <Text style={styles.textshown}>Back Image</Text>
+                    <Text style={styles.textshown}>2. Back Image</Text>
                     <ImagePicker onTakeImage={takeImageHandlerOtherIDPicBack} />
+                    </Card>
+
+                    <Card elevation={7} containerStyle={{ borderRadius: 10, marginBottom: 5 }}>
 
                     <View>
                         <TouchableOpacity
@@ -181,7 +192,8 @@ const DocsUploadScreen = () => {
                             onPress={uploadImages}>
                             <Text style={{ color: '#fff', paddingBottom: 10 }}>Submit</Text>
                         </TouchableOpacity>
-                    </View>
+                        </View>
+                    </Card>
 
                 </View>
             </View>
@@ -198,10 +210,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     wrapper: {
-        width: '90%',
+        width: '100%',
     },
     textshown: {
-        fontSize: 12,
+        color: '#676A6C',
+        fontSize: 15,
         fontFamily: 'zwodrei',
         marginTop: 10,
         marginLeft: 10,
@@ -267,13 +280,14 @@ const styles = StyleSheet.create({
         marginTop: 17,
 
     },
-    textshown: {
-        fontSize: 14,
+    textshowncenter: {
+        color: '#676A6C',
+        fontSize: 18,
         fontFamily: 'zwodrei',
-        marginTop: 10,
-        marginLeft: 10,
-        alignContent: 'center',
+        justifyContent: 'center',
         alignItems: 'center',
-    },
+        marginLeft: 100
+    }
+    
 
 });

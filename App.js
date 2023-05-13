@@ -16,9 +16,16 @@ import LoadingOverlay from './components/ui/LoadingOverlay';
 import { useFonts } from 'expo-font'
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import DocsUploadScreen from './screens/DocsUploadScreen';
+import Incomplete_workforceScreen from './screens/Incomplete_workforceScreen';
 import CustomDrawer from './/components//CustomDrawer';
 import Iconnew from 'react-native-vector-icons/FontAwesome';
 import { AntDesign } from '@expo/vector-icons'; 
+import ProfileScreen from './screens/ProfileScreen';
+import Complete_workforceScreen from './screens/Complete_workforceScreen';
+import Verified_workforceScreen from './screens/Verified_workforceScreen';
+import Approved_workforceScreen from './screens/Approved_workforceScreen';
+import axios from 'axios';
+import ViewWorkforceScreen from './screens/ViewWorkforceScreen';
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -29,15 +36,14 @@ function DrawerNavigator() {
     <Drawer.Navigator 
       drawerContent={props => <CustomDrawer {...props} />}
       screenOptions={{
-        headerStyle: {
-          backgroundColor: '#68a5d3',
-        },
-        headerTintColor: 'white',
-        sceneContainerStyle: { backgroundColor: '#d5e4ef' },
-        drawerContentStyle: { backgroundColor: '#53C1BA' },
-        drawerInactiveTintColor: '#1B75BB',
-        drawerActiveTintColor: '#1B75BB',
-        drawerActiveBackgroundColor: '#8eccc8',
+        headerStyle: { backgroundColor: Colors.primary500 },
+        contentStyle: { backgroundColor: Colors.primary100 },
+        headerTintColor: '#53C1BA',
+        //sceneContainerStyle: { backgroundColor: '#d5e4ef' },
+       // drawerContentStyle: { backgroundColor: '#53C1BA' },
+       // drawerInactiveTintColor: '#1B75BB',
+        //drawerActiveTintColor: '#bdc6cd',
+        //drawerActiveBackgroundColor: '#8eccc8',
         
       }}
     >
@@ -53,7 +59,7 @@ function DrawerNavigator() {
             <View style={styles.upperconatiner}>
               <IconButton
                 icon="exit"
-                color={tintColor}
+                color='#53C1BA'
                 size={40}
                onPress={authCtx.logout}
               />
@@ -62,7 +68,7 @@ function DrawerNavigator() {
           headerTitle: () => (
             <View style={styles.titlecontainer}>
               <Image
-                style={{ width: 50, height: 50 }}
+                style={{ width: 35, height: 50,marginRight:15 }}
                 source={require('.//assets//images//homeIcon.png')}
                 resizeMode='contain'
               />
@@ -72,6 +78,128 @@ function DrawerNavigator() {
           headerTitleStyle: { flex: 1, textAlign: 'center' },
         }}
       />
+
+      <Drawer.Screen
+        name="Incomplete Workforce List"
+        component={Incomplete_workforceScreen}
+        options={{
+          drawerIcon: ({ color }) => (
+            <AntDesign name="user" size={24} color="black" />
+          ),
+          headerRight: ({ tintColor }) => (
+            <View style={styles.upperconatiner}>
+              <IconButton
+                icon="exit"
+                color='#53C1BA'
+                size={40}
+                onPress={authCtx.logout}
+              />
+            </View>
+          ),
+          headerTitle: () => (
+            <View style={styles.titlecontainer}>
+              <Image
+                style={{ width: 35, height: 50,marginRight:15 }}
+                source={require('.//assets//images//homeIcon.png')}
+                resizeMode='contain'
+              />
+              <Text style={styles.headertext}>Incomplete List</Text>
+            </View>
+          ),
+          headerTitleStyle: { flex: 1, textAlign: 'center' },
+        }}
+      />
+      <Drawer.Screen
+        name="Complete Workforce List"
+        component={Complete_workforceScreen}
+        options={{
+          drawerIcon: ({ color }) => (
+            <AntDesign name="user" size={24} color="black" />
+          ),
+          headerRight: ({ tintColor }) => (
+            <View style={styles.upperconatiner}>
+              <IconButton
+                icon="exit"
+                color='#53C1BA'
+                size={40}
+                onPress={authCtx.logout}
+              />
+            </View>
+          ),
+          headerTitle: () => (
+            <View style={styles.titlecontainer}>
+              <Image
+                style={{ width: 35, height: 50, marginRight: 15 }}
+                source={require('.//assets//images//homeIcon.png')}
+                resizeMode='contain'
+              />
+              <Text style={styles.headertext}>Complete List</Text>
+            </View>
+          ),
+          headerTitleStyle: { flex: 1, textAlign: 'center' },
+        }}
+      />
+      <Drawer.Screen
+        name="Verified Workforce List"
+        component={Verified_workforceScreen}
+        options={{
+          drawerIcon: ({ color }) => (
+            <AntDesign name="user" size={24} color="black" />
+          ),
+          headerRight: ({ tintColor }) => (
+            <View style={styles.upperconatiner}>
+              <IconButton
+                icon="exit"
+                color='#53C1BA'
+                size={40}
+                onPress={authCtx.logout}
+              />
+            </View>
+          ),
+          headerTitle: () => (
+            <View style={styles.titlecontainer}>
+              <Image
+                style={{ width: 35, height: 50, marginRight: 15 }}
+                source={require('.//assets//images//homeIcon.png')}
+                resizeMode='contain'
+              />
+              <Text style={styles.headertext}>Complete List</Text>
+            </View>
+          ),
+          headerTitleStyle: { flex: 1, textAlign: 'center' },
+        }}
+      />
+      <Drawer.Screen
+        name="Approved Workforce List"
+        component={Approved_workforceScreen}
+        options={{
+          drawerIcon: ({ color }) => (
+            <AntDesign name="user" size={24} color="black" />
+          ),
+          headerRight: ({ tintColor }) => (
+            <View style={styles.upperconatiner}>
+              <IconButton
+                icon="exit"
+                color='#53C1BA'
+                size={40}
+                onPress={authCtx.logout}
+              />
+            </View>
+          ),
+          headerTitle: () => (
+            <View style={styles.titlecontainer}>
+              <Image
+                style={{ width: 35, height: 50, marginRight: 15 }}
+                source={require('.//assets//images//homeIcon.png')}
+                resizeMode='contain'
+              />
+              <Text style={styles.headertext}>Approved List</Text>
+            </View>
+          ),
+          headerTitleStyle: { flex: 1, textAlign: 'center' },
+        }}
+      />
+      
       
     </Drawer.Navigator>
   )
@@ -106,6 +234,7 @@ function AuthenticatedStack() {
   return (
     <Stack.Navigator
       screenOptions={{
+        headerTintColor: '#53C1BA',
         headerStyle: { backgroundColor: Colors.primary500 },
         headerTintColor: 'white',
         contentStyle: { backgroundColor: Colors.primary100 },
@@ -124,6 +253,53 @@ function AuthenticatedStack() {
         component={DocsUploadScreen}
         options={{
           headerShown: true,
+          headerTintColor: '#53C1BA',
+          headerTitle: () => (
+            <View style={styles.titlecontainer}>
+              <Image
+                style={{ width: 30, height: 50 }}
+                source={require('.//assets//images//homeIcon.png')}
+                resizeMode='contain'
+              />
+              <Text style={styles.headertext}>Documents Upload</Text>
+            </View>
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="ProfileScreen"
+        component={ProfileScreen}
+        options={{
+          headerShown: true,
+          headerTintColor: '#53C1BA',
+          headerTitle: () => (
+            <View style={styles.titlecontainer}>
+              <Image
+                style={{ width: 30, height: 50 }}
+                source={require('.//assets//images//homeIcon.png')}
+                resizeMode='contain'
+              />
+              <Text style={styles.headertext}>User Profile</Text>
+            </View>
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="ViewWorkforceDetails"
+        component={ViewWorkforceScreen}
+        options={{
+          headerShown: true,
+          headerTintColor: '#53C1BA',
+          headerTitle: () => (
+            <View style={styles.titlecontainer}>
+              <Image
+                style={{ width: 30, height: 50 }}
+                source={require('.//assets//images//homeIcon.png')}
+                resizeMode='contain'
+              />
+              <Text style={styles.headertext}>User Profile</Text>
+            </View>
+          ),
         }}
       />
       
@@ -137,14 +313,13 @@ function Navigation() {
   return (
     <NavigationContainer>
       {!authCtx.isAuthenticated ? <AuthStack /> : <AuthenticatedStack />}
-    
-      
     </NavigationContainer>
   );
 }
 
 function Root() {
   const [isTryingLogin, setIsTryingLogin] = useState(true);
+  const [userDetails, setUserDetails] = useState(null);
 
   const authCtx = useContext(AuthContext);
 
@@ -152,8 +327,6 @@ function Root() {
     async function fetchToken() {
       const storedToken = await AsyncStorage.getItem('token');
       
-      
-
       if (storedToken) {
         authCtx.authenticate(storedToken);
       }
@@ -163,6 +336,28 @@ function Root() {
 
     fetchToken();
   }, []);
+
+  
+  // useEffect(() => {
+   
+  //   const fetchData = async () => {
+  //     const jwtToken = await AsyncStorage.getItem('token');
+  //     const response = await axios.get('http://www.kushalkaamgar.com/kk.api/account/user', {
+  //       headers: {
+  //         'Authorization': `Bearer ${jwtToken}`
+  //       }
+  //     });
+  //     setUserDetails(response.data);
+  //     console.log(response.data.firstName)
+  //     console.log(response.data.lastName)
+  //     authCtx.addfirstName(response.data.firstName);
+  //     authCtx.addlastName(response.data.lastName);
+  //     console.log(response.data)
+  //   };
+
+  //   fetchData();
+  // }, []);
+
 
   if (isTryingLogin) {
     //return <AppLoading />;
@@ -179,9 +374,13 @@ export default function App() {
   if (!loaded) {
     return <LoadingOverlay message="Loading..."/>;
   }
+
+   
+
+
   return (
     <>
-      <StatusBar style="light" />
+      <StatusBar style="dark" />
       <AuthContextProvider>
         <Root />
       </AuthContextProvider>
@@ -201,6 +400,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   headertext: {
+    color: '#1B75BB',
     fontSize: 30,
     fontFamily: 'zwodrei',
     marginLeft: 10,

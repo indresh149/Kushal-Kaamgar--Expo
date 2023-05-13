@@ -30,8 +30,10 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        borderWidth: 1,
-        borderColor: 'rgba(0, 0, 0, 0.1)'
+        borderWidth: 2,
+        borderColor: '#1B75BB',
+        borderRadius: 5,
+
     },
     pressed: {
         opacity: 0.7,
@@ -40,6 +42,7 @@ const styles = StyleSheet.create({
         marginRight: 6,
     },
     text: {
+        fontFamily: 'zwodrei',
         color:'blue',
     },
 });

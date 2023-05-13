@@ -3,7 +3,7 @@ import { useContext, useState } from 'react';
 
 import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 import { Formik } from 'formik';
-import { Alert, FlatList, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
+import { Alert, FlatList, ScrollView,Button, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 import RadioForm from 'react-native-simple-radio-button';
 import Iconnew from 'react-native-vector-icons/FontAwesome';
@@ -14,6 +14,12 @@ import OtherKnownLanguageFields from '../components/DropDown/OtherKnownLanguageF
 import ExperienceModal from '../Modals/ExperienceModal';
 import { AuthContext } from '../store/auth-context';
 import Checkbox from 'expo-checkbox';
+import Custom_Dropdown from '../components/DropDown/Custom_Dropdown';
+import { Card } from 'react-native-elements';
+import DatePicker from 'react-native-modern-datepicker';
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+
+
 
 const OtherIDdata = [
     { OtherIDlabel: 'Voter ID', OtherIDvalue: '1' },
@@ -217,7 +223,13 @@ function WelcomeScreen({ navigation }) {
 
     const onChange = (event, selectedDate) => {
         const currentDate = selectedDate;
-        setDate(currentDate);
+        if (currentDate == new Date()) {
+            setDate(null)
+        }
+        else {
+            setDate(currentDate);
+        }
+        
     };
 
     const showMode = (currentMode) => {
@@ -233,6 +245,9 @@ function WelcomeScreen({ navigation }) {
         showMode('date');
     };
 
+    const [selectedDate, setSelectedDate] = useState('');
+
+    
 
     const [adhaarNumber, setAdhaarNumber] = useState('');
 
@@ -273,6 +288,7 @@ function WelcomeScreen({ navigation }) {
 
         } catch (error) {
             //console.error(error);
+            Alert.alert('Network Error. Please try again')
             setExists(error);
             return error;
         }
@@ -317,7 +333,7 @@ function WelcomeScreen({ navigation }) {
                     OtherIdNumber: OtherIDNumber,
                     OtherIdType: OtherIDvalue,
                     Email: email,
-                    DateOfBirth: null,
+                    DateOfBirth: selectedDate,
                     GenderId: Gendervalue,
                     isMarried: MaritalStatusvalue,
                     isCriminalRecord: criminalRecordvalue,
@@ -375,11 +391,17 @@ function WelcomeScreen({ navigation }) {
                 console.log(response.status)
                 authCtx.addworkforceID(wid)
                 if (response.status == 200) {
+                    Alert.alert('New workforce data added')
                     navigation.navigate('DocsUploadScreen');
+                }
+                if (response.status == 401) {
+                    Alert.alert('Your session has expired. Please login again')
+                    navigation.navigate('Login');
                 }
             })
             .catch((error) => {
                 console.log('Error adding new workforce data:', error);
+                Alert.alert('Network Error. Please try again')
             });
 
     }
@@ -456,6 +478,7 @@ function WelcomeScreen({ navigation }) {
                 console.log('New workforce data updated:', response.data);
                 console.log(response.status)
                 if (response.status == 200) {
+                    Alert.alert('Workforce data updated')
                     navigation.navigate('DocsUploadScreen');
                 }
             })
@@ -496,52 +519,57 @@ function WelcomeScreen({ navigation }) {
 
                         <View style={styles.wrapper}>
 
-                            <TextInput
-                                style={styles.input}
-                                value={values.firstname}
-                                placeholder="Enter First Name"
-                                onChangeText={handleChange('firstname')}
-                                onBlur={() => setFieldTouched('firstname')}
-                            />
-                            {(errors.firstname && touched.firstname) &&
-                                <Text style={styles.errors}>{errors.firstname}</Text>
-                            }
+                            <Card elevation={7} containerStyle={{borderRadius: 10,}}>
 
-                            <TextInput
-                                style={styles.input}
-                                value={values.middlename}
-                                placeholder="Enter Middle Name"
-                                onChangeText={handleChange('middlename')}
-                                onBlur={() => setFieldTouched('middlename')}
-                            />
-                            {(errors.middlename && touched.middlename) && (
-                                <Text style={styles.errors}>{errors.middlename}</Text>
-                            )}
+                                <TextInput
+                                    style={styles.input}
+                                    value={values.firstname}
+                                    placeholder="Enter First Name"
+                                    onChangeText={handleChange('firstname')}
+                                    onBlur={() => setFieldTouched('firstname')}
+                                />
+                                {(errors.firstname && touched.firstname) &&
+                                    <Text style={styles.errors}>{errors.firstname}</Text>
+                                }
 
-                            <TextInput
-                                style={styles.input}
-                                value={values.lastname}
-                                placeholder="Enter Last Name"
-                                onChangeText={handleChange('lastname')}
-                                onBlur={() => setFieldTouched('lastname')}
-                            />
-                            {(errors.lastname && touched.lastname) &&
-                                <Text style={styles.errors}>{errors.lastname}</Text>
-                            }
+                                
+                                
+                                <TextInput
+                                    style={styles.input}
+                                    value={values.middlename}
+                                    placeholder="Enter Middle Name"
+                                    onChangeText={handleChange('middlename')}
+                                    onBlur={() => setFieldTouched('middlename')}
+                                />
+                                {(errors.middlename && touched.middlename) && (
+                                    <Text style={styles.errors}>{errors.middlename}</Text>
+                                )}
 
-                            <TextInput
-                                style={styles.input}
-                                value={values.email}
-                                placeholder="Enter Email"
-                                onChangeText={handleChange('email')}
-                                onBlur={() => setFieldTouched('email')}
-                            />
-                            {(errors.email && touched.email) &&
-                                <Text style={styles.email}>{errors.email}</Text>
-                            }
+                                <TextInput
+                                    style={styles.input}
+                                    value={values.lastname}
+                                    placeholder="Enter Last Name"
+                                    onChangeText={handleChange('lastname')}
+                                    onBlur={() => setFieldTouched('lastname')}
+                                />
+                                {(errors.lastname && touched.lastname) &&
+                                    <Text style={styles.errors}>{errors.lastname}</Text>
+                                }
+
+                                <TextInput
+                                    style={styles.input}
+                                    value={values.email}
+                                    placeholder="Enter Email"
+                                    onChangeText={handleChange('email')}
+                                    onBlur={() => setFieldTouched('email')}
+                                />
+                                {(errors.email && touched.email) &&
+                                    <Text style={styles.email}>{errors.email}</Text>
+                                }
+                            </Card>
 
 
-
+                            <Card elevation={7} containerStyle={{ borderRadius: 10, }}>
                             <TextInput
                                 style={styles.input}
                                 value={values.phonenumber}
@@ -574,10 +602,11 @@ function WelcomeScreen({ navigation }) {
                             />
                             {(errors.Altphonenumber && touched.Altphonenumber) &&
                                 <Text style={styles.errors}>{errors.Altphonenumber}</Text>
-                            }
+                                }
+                            </Card>
 
 
-
+                            <Card elevation={7} containerStyle={{ borderRadius: 10, }}>
                             <Text style={styles.textshown}>Date Of Birth</Text>
 
                             <View style={styles.DOBPicker}>
@@ -645,7 +674,11 @@ function WelcomeScreen({ navigation }) {
                                     }}
                                 />
 
-                            </View>
+                                </View>
+                                
+                            </Card>
+
+                            <Card elevation={7} containerStyle={{ borderRadius: 10, }}>
 
                             <Text style={styles.textshown}>Select Qualification Type</Text>
                             <View style={styles.icondropdown}>
@@ -748,7 +781,11 @@ function WelcomeScreen({ navigation }) {
                                         setMaritalStatusIsFocus(false);
                                     }}
                                 />
-                            </View>
+                                </View>
+                                
+                            </Card>
+
+                            <Card elevation={7} containerStyle={{ borderRadius: 10, }}>
 
                             <Text style={styles.textshown}>Select Primary Language</Text>
                             <View style={styles.icondropdown}>
@@ -865,8 +902,9 @@ function WelcomeScreen({ navigation }) {
                                 : null
                             }
 
+                            </Card>
 
-
+                            <Card elevation={7} containerStyle={{ borderRadius: 10, }}>
                             <Text style={styles.textshown}>Location Preferences</Text>
 
                             <View style={[{ flex: 1 }, styles.input]}>
@@ -878,6 +916,7 @@ function WelcomeScreen({ navigation }) {
                                             return (
                                                 <LocationPreferencesFields
                                                     index={index}
+                                                    // data = {Locationdata}
                                                     onChangeLocationPrefId={txt => {
                                                         changeLocationPrefID(index, txt);
                                                     }}
@@ -916,7 +955,10 @@ function WelcomeScreen({ navigation }) {
                                     }}>
                                     <Text style={{ color: '#fff', paddingBottom: 10 }}>Add More Location Preferences</Text>
                                 </TouchableOpacity>
-                            </View>
+                                </View>
+                            </Card>
+
+                            <Card elevation={7} containerStyle={{ borderRadius: 10, }}>
 
                             <Text style={styles.textshown}>Profession Details</Text>
 
@@ -943,7 +985,7 @@ function WelcomeScreen({ navigation }) {
                                                         alignItems: 'center',
                                                         marginTop: 10,
                                                     }}>
-                                                        <Text style={{ marginLeft: 5, color: '#1B75BB', fontFamily: 'zwodrei' }}> Experience {ind + 1}</Text>
+                                                        <Text style={{ marginLeft: 5, color: '#676A6C', fontFamily: 'zwodrei' }}> Experience {ind + 1}</Text>
 
                                                         <TouchableWithoutFeedback
                                                             key={ind}
@@ -954,7 +996,7 @@ function WelcomeScreen({ navigation }) {
 
 
                                                             }}>
-                                                            <Text style={{ color: 'red', marginLeft: 90, marginRight: 15 }}>Remove</Text>
+                                                            <Text style={{ color: '#676A6C', marginLeft: 90, marginRight: 15 }}>Remove</Text>
                                                         </TouchableWithoutFeedback>
                                                     </View>
 
@@ -975,7 +1017,8 @@ function WelcomeScreen({ navigation }) {
                                     }}>
                                     <Text style={{ color: '#fff' }}>Add Experience Field</Text>
                                 </TouchableOpacity>
-                            </View>
+                                </View>
+                            
 
 
 
@@ -1012,9 +1055,10 @@ function WelcomeScreen({ navigation }) {
                                         setWayToCommuteIsFocus(false);
                                     }}
                                 />
-                            </View>
+                                </View>
+                            </Card>
 
-
+                            <Card elevation={7} containerStyle={{ borderRadius: 10, }}>
                             <Text style={styles.textshown}>Current Address</Text>
 
                             <View style={styles.input}>
@@ -1042,7 +1086,10 @@ function WelcomeScreen({ navigation }) {
                                 {(errors.PostalCodeCurrentAddress && touched.PostalCodeCurrentAddress) &&
                                     <Text style={styles.errors}>{errors.PostalCodeCurrentAddress}</Text>
                                 }
-                            </View>
+                                </View>
+                            </Card>
+
+                            <Card elevation={7} containerStyle={{ borderRadius: 10,marginBottom: 10 }}>
 
 
                             <View style={styles.checkboxsection}>
@@ -1084,9 +1131,11 @@ function WelcomeScreen({ navigation }) {
                                 {(errors.PostalCodePermanentAddress && touched.PostalCodePermanentAddress) &&
                                     <Text style={styles.errors}>{errors.PostalCodePermanentAddress}</Text>
                                 }
-                            </View>
+                                </View>
+                            
+                            
 
-                        
+
                             {workforceIDStored == null ?
                                 <View>
                                     <TouchableOpacity
@@ -1104,7 +1153,8 @@ function WelcomeScreen({ navigation }) {
                                     </TouchableOpacity>
                                 </View>
 
-                            }
+                                }
+                            </Card>
 
 
 
@@ -1127,16 +1177,17 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     wrapper: {
-        width: '90%',
+        width: '100%',
     },
     text: {
         fontSize: 12,
         fontFamily: 'zwodrei'
     },
     input: {
+        color: '#676A6C',
         marginBottom: 12,
         marginTop: 12,
-        borderWidth: 2,
+        borderWidth: 1,
         borderColor: '#53C1BA',
         borderRadius: 8,
         paddingHorizontal: 14,
@@ -1161,10 +1212,11 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
     textshown: {
+        color: '#676A6C',
         fontSize: 14,
         fontFamily: 'zwodrei',
         marginTop: 10,
-        marginLeft: 10,
+        
     },
     cardstyle: {
         borderColor: '#53C1BA',
@@ -1218,7 +1270,7 @@ const styles = StyleSheet.create({
     checkbox: {
         alignSelf: 'center',
         marginTop: 10,
-        marginLeft: 14,
+        marginLeft: 10,
     },
     label: {
         fontFamily: 'zwodrei',
@@ -1270,6 +1322,7 @@ const styles = StyleSheet.create({
 
     },
     customtextinput: {
+        color: '#676A6C',
         marginBottom: 12,
         marginTop: 12,
         borderWidth: 2,
@@ -1284,7 +1337,7 @@ const styles = StyleSheet.create({
     DOBPicker: {
         marginBottom: 10,
         marginTop: 10,
-        borderWidth: 2,
+        borderWidth: 1,
         borderColor: '#53C1BA',
         borderRadius: 8,
         paddingHorizontal: 14,
@@ -1301,18 +1354,20 @@ const styles = StyleSheet.create({
         height: 53,
         marginBottom: 12,
         marginTop: 12,
-        borderWidth: 2,
+        borderWidth: 1,
         borderColor: '#25c4b9',
         borderRadius: 8,
         paddingHorizontal: 14,
         fontFamily: 'zwodrei'
     },
     placeholderStyle: {
+        color: '#676A6C',
         fontSize: 14,
         fontFamily: 'zwodrei',
         borderRadius: 8,
     },
     selectedTextStyle: {
+        color: '#676A6C',
         fontSize: 16,
         fontFamily: 'zwodrei',
     },
@@ -1321,6 +1376,7 @@ const styles = StyleSheet.create({
         height: 20,
     },
     inputSearchStyle: {
+        color: '#676A6C',
         height: 40,
         fontSize: 16,
         fontFamily: 'zwodrei',
@@ -1336,7 +1392,7 @@ const styles = StyleSheet.create({
     },
     radioLabelStyle: {
         fontSize: 14,
-        color: '#53C1BA',
+        color: '#676A6C',
         fontFamily: 'zwodrei',
     },
     checkboxsection: {

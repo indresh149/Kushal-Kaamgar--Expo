@@ -5,11 +5,11 @@ import Icon from 'react-native-vector-icons/Entypo';
 import { Dropdown } from 'react-native-element-dropdown';
 import { Formik } from 'formik';
 import * as yup from 'yup';
+import { Entypo } from '@expo/vector-icons';
 
 
 const registerValidationSchema = yup.object().shape({
     ExperienceInMonths: yup.string()
-        .required('ExperienceInMonths is required')
         .min(1, 'Must be between one or two digits')
         .max(2, 'Must be between one or two digits'),
     SelfRating: yup.string()
@@ -78,7 +78,7 @@ const ExperienceModal = (props) => {
                         <View style={{ backgroundColor: '#06050eaa', flex: 1 }}>
                             <View style={styles.modalView}>
                                 <View style={styles.upperconatiner}>
-                                    <Text style={{ color: '#1B75BB', fontFamily: 'zwodrei' }}>Experience {props.index} </Text>
+                                    <Text style={{ color: '#676A6C', fontFamily: 'zwodrei' }}>Experience {props.index} </Text>
                                     <TouchableOpacity
                                         style={styles.button}
                                         onPress={() => { props.setVisible(false) }}>
@@ -92,7 +92,7 @@ const ExperienceModal = (props) => {
                                     </TouchableOpacity>
                                 </View>
 
-                                <View>
+                                <View style={styles.icondropdown}>
                                     <Dropdown
                                         style={[styles.dropdown, isFocus && { borderColor: '#25c4b9' }]}
                                         placeholderStyle={styles.placeholderStyle}
@@ -115,12 +115,21 @@ const ExperienceModal = (props) => {
                                             setIsFocus(false);
                                         }}
                                     />
+                                    <Entypo
+                                        style={styles.icon}
+                                        name="circle-with-cross" size={24} color="black"
+                                        onPress={() => {
+                                            setValue(null);
+                                            setIsFocus(false);
+                                        }}
+                                    />
                                 </View>
                                 <TextInput
                                     style={styles.inputtextstyle}
                                     placeholder="Experience In Months"
                                     value={values.ExperienceInMonths}
                                     onChangeText={handleChange('ExperienceInMonths')}
+                                    keyboardType="numeric"
                                     onBlur={() => setFieldTouched('ExperienceInMonths')}
                                 />
                                 {(errors.ExperienceInMonths && touched.ExperienceInMonths) &&
@@ -132,6 +141,7 @@ const ExperienceModal = (props) => {
                                     placeholder="Self Rating (1-10)"
                                     value={values.SelfRating}
                                     onChangeText={handleChange('SelfRating')}
+                                    keyboardType="numeric"
                                     onBlur={() => setFieldTouched('SelfRating')}
                                 />
                                 {(errors.SelfRating && touched.SelfRating) &&
@@ -143,6 +153,7 @@ const ExperienceModal = (props) => {
                                     placeholder="Actual Wage"
                                     value={values.ActualWage}
                                     onChangeText={handleChange('ActualWage')}
+                                    keyboardType="numeric"
                                     onBlur={() => setFieldTouched('ActualWage')}
                                 />
                                 {(errors.ActualWage && touched.ActualWage) &&
@@ -154,13 +165,14 @@ const ExperienceModal = (props) => {
                                     placeholder="Expected Wage"
                                     value={values.ExpectedWage}
                                     onChangeText={handleChange('ExpectedWage')}
+                                    keyboardType="numeric"
                                     onBlur={() => setFieldTouched('ExpectedWage')}
                                 />
                                 {(errors.ExpectedWage && touched.ExpectedWage) &&
                                     <Text style={styles.errors}>{errors.ExpectedWage}</Text>
                                 }
 
-                                <Text style={styles.textshown}>Is WorkEquipment Available ?</Text>
+                                <Text style={styles.textshown}>Is Work Equipment Available ?</Text>
 
                                 <RadioForm
                                     radio_props={itemseqipment}
@@ -175,7 +187,7 @@ const ExperienceModal = (props) => {
                                     labelColor="#53C1BA"
                                     style={styles.radioformstyle}
                                     formHorizontal={true}
-                                    labelStyle={{ fontSize: 14, paddingLeft: 10, color: '#53C1BA', fontFamily: 'zwodrei', }}
+                                    labelStyle={{ fontSize: 14, paddingLeft: 10, color: '#676A6C', fontFamily: 'zwodrei', }}
 
                                 />
                                 <View style={styles.submitbuttonstyle}>
@@ -225,6 +237,7 @@ const styles = StyleSheet.create({
         elevation: 6,
     },
     textshown: {
+        color:'#676A6C',
         fontSize: 12,
         fontFamily: 'zwodrei',
         marginTop: 10,
@@ -271,6 +284,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
     },
     dropdown: {
+        width: '90%',
         height: 53,
         marginBottom: 12,
         marginTop: 12,
@@ -284,6 +298,7 @@ const styles = StyleSheet.create({
         marginRight: 5,
     },
     label: {
+        color:'#676A6C',
         position: 'absolute',
         backgroundColor: 'white',
         left: 22,
@@ -295,11 +310,13 @@ const styles = StyleSheet.create({
         borderRadius: 8,
     },
     placeholderStyle: {
+        color:'#676A6C',
         fontSize: 14,
         fontFamily: 'zwodrei',
         borderRadius: 8,
     },
     selectedTextStyle: {
+        color: '#676A6C',
         fontSize: 16,
         fontFamily: 'zwodrei',
     },
@@ -316,6 +333,19 @@ const styles = StyleSheet.create({
     errors: {
         color: 'red',
     },
+    icondropdown: {
+        alignItems: 'center',
+        flexDirection: 'row',
+
+
+    },
+    icon: {
+        marginTop: 5,
+        marginRight: 10,
+        marginLeft: 17,
+        alignContent: 'center'
+    },
+
 });
 
 export default ExperienceModal;

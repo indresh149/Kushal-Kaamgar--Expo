@@ -28,13 +28,13 @@ const OtherKnownLanguageFields = ({
                     alignItems: 'center',
                     marginTop: 20,
                 }}>
-                <Text style={{ marginLeft: 20, color: '#1B75BB', fontFamily: 'zwodrei' }}>Other Known Language {index + 1} </Text>
+                <Text style={{ marginLeft: 20, color: '#676A6C', fontFamily: 'zwodrei' }}>Other Known Language {index + 1} </Text>
                 <TouchableOpacity
                     style={{ marginRight: 20 }}
                     onPress={() => {
                         onClickRemove();
                     }}>
-                    <Text style={{ color: '#53C1BA', fontFamily: 'zwodrei' }}>Remove</Text>
+                    <Text style={{ color: '#676A6C', fontFamily: 'zwodrei' }}>Remove</Text>
                 </TouchableOpacity>
             </View>
             <View>
@@ -114,11 +114,13 @@ const styles = StyleSheet.create({
         borderRadius: 8,
     },
     placeholderStyle: {
+        color:'#676A6C',
         fontSize: 14,
         fontFamily: 'zwodrei',
         borderRadius: 8,
     },
     selectedTextStyle: {
+        color: '#676A6C',
         fontSize: 16,
         fontFamily: 'zwodrei',
     },
@@ -127,6 +129,7 @@ const styles = StyleSheet.create({
         height: 20,
     },
     inputSearchStyle: {
+        color:'#676A6C',
         height: 40,
         fontSize: 16,
         fontFamily: 'zwodrei',

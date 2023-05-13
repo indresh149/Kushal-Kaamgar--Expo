@@ -12,46 +12,77 @@ import {
     DrawerItemList,
 } from '@react-navigation/drawer';
 import { AuthContext } from '../store/auth-context';
+import IconButton from '../components/ui/IconButton';
+import { EvilIcons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 // import Ionicons from 'react-native-vector-icons/Ionicons';
 // import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 
 const CustomDrawer = props => {
+    const navigation = useNavigation();
     const [storedEmail, setStoredEmail] = useState(null);
+    const [storedFirstName, setStoredFirstName] = useState(null);
+    const [storedlastName, setStoredlastName] = useState(null);
+    
 
     useEffect(() => {
         async function fetchEmail() {
             const storedEmail = await AsyncStorage.getItem('email');
+            const storedFirstName = await AsyncStorage.getItem('firstName');
+            const storedLastName = await AsyncStorage.getItem('lastName');
             setStoredEmail(storedEmail);
+            setStoredFirstName(storedFirstName);
+            setStoredlastName(storedLastName);
         }
         fetchEmail();
     }, []);
+    const handleEditProfilePress = () => {
+        navigation.navigate('ProfileScreen');
+    };
 
     const authCtx = useContext(AuthContext);
     return (
         <View style={{ flex: 1 }}>
             <DrawerContentScrollView
                 {...props}
-                contentContainerStyle={{ backgroundColor: '#68a5d3' }}>
+                contentContainerStyle={{ backgroundColor: '#F3F3F4' }}>
                 <ImageBackground
             
-                    style={{ padding: 20,margin:5 }}>
+                    style={{ padding: 1,margin:1 }}>
                     <Image
                         source={require('..//assets//images//homeIcon.png')}
-                        style={{ height: 70, width: 70, marginBottom: 10 }}
+                        style={{ height: 70, width: 70, marginBottom: 10 ,marginLeft:100,resizeMode:'contain'}}
                     />
+                    <View style={{ flexDirection: 'column', alignItems: 'center' }}>
+                        <EvilIcons name="user" size={45} color="#53C1BA" />
+                        <Text
+                            style={{
+                                color: '#676A6C',
+                                fontSize: 16,
+                                fontFamily: 'zwodrei',
+                                 marginTop:5,
+                                //  marginLeft: 5,
+                                marginBottom:5
+
+                            }}>
+                            {authCtx.firstName || storedFirstName} {authCtx.lastName || storedlastName}
+                        </Text>
                     <Text
                         style={{
-                            color: '#fff',
-                            fontSize: 14,
-                            fontFamily: 'zwodrei',
+                            color: '#676A6C',
+                            fontSize: 13,
+                                fontFamily: 'zwodrei',
+                                marginBottom: 10
+                           // marginTop:10
+                              //  marginLeft: 5,
                             
-                            marginTop:10
                         }}>
-                        {storedEmail}
-    
-                    </Text>
+                            {authCtx.email || storedEmail}
+                            
+                        </Text>
+                    </View>
                     
                 </ImageBackground>
                 <View style={{ flex: 1, backgroundColor: '#fff', paddingTop: 5, borderTopWidth: 1, borderTopColor: '#1B75BB' }}>
@@ -59,11 +90,17 @@ const CustomDrawer = props => {
                 </View>
             </DrawerContentScrollView>
             <View style={{ padding: 20, borderTopWidth: 1, borderTopColor: '#1B75BB' }}>
-                <TouchableOpacity onPress={() => { }} style={{ paddingVertical: 15 }}>
+                <TouchableOpacity onPress={() => { }} style={{ paddingVertical: 3 }}>
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        
+                        <IconButton
+                            icon="people"
+                            color='#53C1BA'
+                            size={25}
+                            
+                        />
                         <Text
                             style={{
+                                color:'#676A6C',
                                 fontSize: 15,
                                 fontFamily: 'zwodrei',
                                 marginLeft: 5,
@@ -72,16 +109,41 @@ const CustomDrawer = props => {
                         </Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={authCtx.logout} style={{ paddingVertical: 15 }}>
+                <TouchableOpacity onPress={authCtx.logout} style={{ paddingVertical: 3 }}>
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        
+                        <IconButton
+                            icon="exit"
+                            color='#53C1BA'
+                            size={25}
+                            onPress={authCtx.logout}
+                        />
                         <Text
                             style={{
+                                color: '#676A6C',
                                 fontSize: 15,
                                 fontFamily: 'zwodrei',
                                 marginLeft: 5,
                             }}>
                             Sign Out
+                        </Text>
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={handleEditProfilePress} style={{ paddingVertical: 3 }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <IconButton
+                            icon="person"
+                            color='#53C1BA'
+                            size={25}
+                            onPress={handleEditProfilePress}
+                        />
+                        <Text
+                            style={{
+                                color: '#676A6C',
+                                fontSize: 15,
+                                fontFamily: 'zwodrei',
+                                marginLeft: 5,
+                            }}>
+                            My Profile
                         </Text>
                     </View>
                 </TouchableOpacity>

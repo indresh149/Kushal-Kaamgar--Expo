@@ -94,7 +94,7 @@ function ImagePicker({ onTakeImage }) {
         //setToastMsg('Image Removed')
     };
 
-    let imagePreview = <Text>No image taken yet.</Text>;
+    let imagePreview = <Text style={styles.textstyle}>No image taken yet.</Text>;
 
     if (pickedImage) {
         imagePreview = <Image style={styles.image} source={{ uri: pickedImage }} />;
@@ -130,5 +130,11 @@ const styles = StyleSheet.create({
     image: {
         width: '100%',
         height: '100%',
+    },
+    textstyle: {
+        color: '#676A6C',
+        fontSize: 15,
+        fontFamily: 'zwodrei',
+        
     },
 });

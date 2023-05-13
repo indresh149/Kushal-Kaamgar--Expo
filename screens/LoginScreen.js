@@ -1,12 +1,13 @@
-
 import { Formik } from 'formik';
-import React, { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import {Alert,Button,Image, ScrollView, StyleSheet,Text,TextInput,TouchableOpacity,View,useWindowDimensions} from 'react-native';
 import * as yup from 'yup';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Logo from '../assets/images/logo-vector.png';
 import LoadingOverlay from '../components/ui/LoadingOverlay';
 import { AuthContext } from '../store/auth-context';
 import { login } from '../util/auth';
+import axios from 'axios';
 
 
 const loginValidationSchema = yup.object().shape({
@@ -39,6 +40,7 @@ const LoginScreen = ({ navigation}) => {
             const token = await login(email, password);
           authCtx.authenticate(token);
           authCtx.getEmail(email);
+          fetchData()
         } catch (error) {
             Alert.alert(
                 'Authentication failed!',
@@ -46,7 +48,26 @@ const LoginScreen = ({ navigation}) => {
             );
             setIsAuthenticating(false);
         }
-    }
+  }
+  
+  
+  async function fetchData(){
+      const jwtToken = await AsyncStorage.getItem('token');
+      const response = await axios.get('http://www.kushalkaamgar.com/kk.api/account/user', {
+        headers: {
+          'Authorization': `Bearer ${jwtToken}`
+        }
+      });
+     // setUserDetails(response.data);
+      console.log(response.data.firstName)
+      console.log(response.data.lastName)
+      authCtx.addfirstName(response.data.firstName);
+      authCtx.addlastName(response.data.lastName);
+      console.log(response.data)
+    };
+
+    
+
     if (isAuthenticating) {
         return <LoadingOverlay message="Logging you in..." />;
     }
