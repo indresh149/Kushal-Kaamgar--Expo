@@ -3,7 +3,7 @@ import { useContext, useState } from 'react';
 
 import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 import { Formik } from 'formik';
-import { Alert, FlatList, ScrollView,Button, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
+import { Alert, FlatList, ScrollView, Button, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 import RadioForm from 'react-native-simple-radio-button';
 import Iconnew from 'react-native-vector-icons/FontAwesome';
@@ -90,10 +90,9 @@ const registerValidationSchema = yup.object().shape({
     email: yup.string()
         .email('Please enter valid email'),
     phonenumber: yup.string()
-        .min(10, 'Must be exactly 10 digits')
-        .max(10, 'Must be exactlt 10 digits')
-        .required('Phone Number is required')
-        .matches(/^[0-9]+$/, "Must be only digits"),
+        .min(13, 'Must be exactly 10 digits')
+        .max(13, 'Must be exactlt 10 digits')
+        .required('Phone Number is required'),
     Altphonenumber: yup.string()
         .min(10, 'Must be exactly 10 digits')
         .max(10, 'Must be exactlt 10 digits')
@@ -229,7 +228,7 @@ function WelcomeScreen({ navigation }) {
         else {
             setDate(currentDate);
         }
-        
+
     };
 
     const showMode = (currentMode) => {
@@ -247,7 +246,7 @@ function WelcomeScreen({ navigation }) {
 
     const [selectedDate, setSelectedDate] = useState('');
 
-    
+
 
     const [adhaarNumber, setAdhaarNumber] = useState('');
 
@@ -426,8 +425,8 @@ function WelcomeScreen({ navigation }) {
                 primaryLanguageId: PrimaryLanguagevalue,
                 isOtherLanguage: isOtherLanguagevalue,
                 commuteById: WayToCommutevalue,
-                isCompleted: false,
-                isVerified: false,
+                isCompleted: true,
+                isVerified: true,
                 isApproved: false
             },
             workforceTranslations: [
@@ -519,7 +518,7 @@ function WelcomeScreen({ navigation }) {
 
                         <View style={styles.wrapper}>
 
-                            <Card elevation={7} containerStyle={{borderRadius: 10,}}>
+                            <Card elevation={7} containerStyle={{ borderRadius: 10, }}>
 
                                 <TextInput
                                     style={styles.input}
@@ -532,8 +531,8 @@ function WelcomeScreen({ navigation }) {
                                     <Text style={styles.errors}>{errors.firstname}</Text>
                                 }
 
-                                
-                                
+
+
                                 <TextInput
                                     style={styles.input}
                                     value={values.middlename}
@@ -570,287 +569,370 @@ function WelcomeScreen({ navigation }) {
 
 
                             <Card elevation={7} containerStyle={{ borderRadius: 10, }}>
-                            <TextInput
-                                style={styles.input}
-                                value={values.phonenumber}
-                                placeholder="Enter Phone Number"
-                                onChangeText={handleChange('phonenumber')}
-                                onBlur={() => setFieldTouched('phonenumber')}
-                                keyboardType="numeric"
-                            />
-                            {(errors.phonenumber && touched.phonenumber) &&
-                                <Text style={styles.errors}>{errors.phonenumber}</Text>
-                            }
+                                <TextInput
+                                    style={styles.input}
+                                    value={values.phonenumber}
+                                    placeholder="Enter Phone Number"
+                                    onChangeText={handleChange('phonenumber')}
+                                    onBlur={() => setFieldTouched('phonenumber')}
+                                // keyboardType="numeric"
+                                />
+                                {(errors.phonenumber && touched.phonenumber) &&
+                                    <Text style={styles.errors}>{errors.phonenumber}</Text>
+                                }
 
-                            <TextInput
-                                style={styles.input}
-                                placeholder="Enter your Adhaar number"
-                                value={adhaarNumber}
-                                onChangeText={formatAdhaarNumber}
-                                keyboardType="numeric"
-                                maxLength={14} // 12 digits and 2 hyphens
-                            />
+                                <TextInput
+                                    style={styles.input}
+                                    placeholder="Enter your Adhaar number"
+                                    value={adhaarNumber}
+                                    onChangeText={formatAdhaarNumber}
+                                    keyboardType="numeric"
+                                    maxLength={14} // 12 digits and 2 hyphens
+                                />
 
 
-                            <TextInput
-                                style={styles.input}
-                                value={values.Altphonenumber}
-                                placeholder="Enter Alternative Phone Number"
-                                onChangeText={handleChange('Altphonenumber')}
-                                onBlur={() => setFieldTouched('Altphonenumber')}
-                                keyboardType="numeric"
-                            />
-                            {(errors.Altphonenumber && touched.Altphonenumber) &&
-                                <Text style={styles.errors}>{errors.Altphonenumber}</Text>
+                                <TextInput
+                                    style={styles.input}
+                                    value={values.Altphonenumber}
+                                    placeholder="Enter Alternative Phone Number"
+                                    onChangeText={handleChange('Altphonenumber')}
+                                    onBlur={() => setFieldTouched('Altphonenumber')}
+                                    keyboardType="numeric"
+                                />
+                                {(errors.Altphonenumber && touched.Altphonenumber) &&
+                                    <Text style={styles.errors}>{errors.Altphonenumber}</Text>
                                 }
                             </Card>
 
 
                             <Card elevation={7} containerStyle={{ borderRadius: 10, }}>
-                            <Text style={styles.textshown}>Date Of Birth</Text>
+                                <Text style={styles.textshown}>Date Of Birth</Text>
 
-                            <View style={styles.DOBPicker}>
-                                <TouchableOpacity
-                                    onPress={showDatepicker}
-                                >
-                                    <Text>{date.toLocaleDateString()}</Text>
-                                </TouchableOpacity>
-                                <Iconnew
-                                    style={styles.icon}
-                                    size={25}
-                                    name="calendar"
-                                    onPress={showDatepicker}
-                                >
-                                </Iconnew>
+                                <View style={styles.DOBPicker}>
+                                    <TouchableOpacity
+                                        onPress={showDatepicker}
+                                    >
+                                        <Text>{date.toLocaleDateString()}</Text>
+                                    </TouchableOpacity>
+                                    <Iconnew
+                                        style={styles.icon}
+                                        size={25}
+                                        name="calendar"
+                                        onPress={showDatepicker}
+                                    >
+                                    </Iconnew>
 
-
-                            </View>
-
-
-
-                            <TextInput
-                                style={styles.input}
-                                value={values.OtherIDNumber}
-                                placeholder="Enter OtherID Number"
-                                onChangeText={handleChange('OtherIDNumber')}
-                                onBlur={() => setFieldTouched('OtherIDNumber')}
-                            />
-                            {(errors.OtherIDNumber && touched.OtherIDNumber) &&
-                                <Text style={styles.errors}>{errors.OtherIDNumber}</Text>
-                            }
-
-
-
-                            <Text style={styles.textshown}>Select OtherID Type</Text>
-                            <View style={styles.icondropdown}>
-
-                                <Dropdown
-                                    style={[styles.dropdown, OtherIDisFocus && { borderColor: '#25c4b9' }]}
-                                    placeholderStyle={styles.placeholderStyle}
-                                    selectedTextStyle={styles.selectedTextStyle}
-                                    inputSearchStyle={styles.inputSearchStyle}
-                                    iconStyle={styles.iconStyle}
-                                    data={OtherIDdata.filter(item => item !== item.OtherIDvalue)}
-                                    search
-                                    maxHeight={400}
-                                    labelField="OtherIDlabel"
-                                    valueField="OtherIDvalue"
-                                    placeholder={!OtherIDisFocus ? 'Select' : '...'}
-                                    searchPlaceholder="Search..."
-                                    value={OtherIDvalue}
-                                    onFocus={() => setOtherIDIsFocus(true)}
-                                    onBlur={() => setOtherIDIsFocus(false)}
-                                    onChange={item => {
-                                        setOtherIDValue(item.OtherIDvalue);
-                                        setOtherIDIsFocus(false);
-                                    }}
-                                />
-                                <Entypo
-                                    style={styles.icon}
-                                    name="circle-with-cross" size={24} color="black"
-                                    onPress={() => {
-                                        setOtherIDValue(null);
-                                        setOtherIDIsFocus(false);
-                                    }}
-                                />
 
                                 </View>
-                                
+
+
+
+                                <TextInput
+                                    style={styles.input}
+                                    value={values.OtherIDNumber}
+                                    placeholder="Enter OtherID Number"
+                                    onChangeText={handleChange('OtherIDNumber')}
+                                    onBlur={() => setFieldTouched('OtherIDNumber')}
+                                />
+                                {(errors.OtherIDNumber && touched.OtherIDNumber) &&
+                                    <Text style={styles.errors}>{errors.OtherIDNumber}</Text>
+                                }
+
+
+
+                                <Text style={styles.textshown}>Select OtherID Type</Text>
+                                <View style={styles.icondropdown}>
+
+                                    <Dropdown
+                                        style={[styles.dropdown, OtherIDisFocus && { borderColor: '#25c4b9' }]}
+                                        placeholderStyle={styles.placeholderStyle}
+                                        selectedTextStyle={styles.selectedTextStyle}
+                                        inputSearchStyle={styles.inputSearchStyle}
+                                        iconStyle={styles.iconStyle}
+                                        data={OtherIDdata.filter(item => item !== item.OtherIDvalue)}
+                                        search
+                                        maxHeight={400}
+                                        labelField="OtherIDlabel"
+                                        valueField="OtherIDvalue"
+                                        placeholder={!OtherIDisFocus ? 'Select' : '...'}
+                                        searchPlaceholder="Search..."
+                                        value={OtherIDvalue}
+                                        onFocus={() => setOtherIDIsFocus(true)}
+                                        onBlur={() => setOtherIDIsFocus(false)}
+                                        onChange={item => {
+                                            setOtherIDValue(item.OtherIDvalue);
+                                            setOtherIDIsFocus(false);
+                                        }}
+                                    />
+                                    <Entypo
+                                        style={styles.icon}
+                                        name="circle-with-cross" size={24} color="black"
+                                        onPress={() => {
+                                            setOtherIDValue(null);
+                                            setOtherIDIsFocus(false);
+                                        }}
+                                    />
+
+                                </View>
+
                             </Card>
 
                             <Card elevation={7} containerStyle={{ borderRadius: 10, }}>
 
-                            <Text style={styles.textshown}>Select Qualification Type</Text>
-                            <View style={styles.icondropdown}>
-                                <Dropdown
-                                    style={[styles.dropdown, QualificationTypeisFocus && { borderColor: '#25c4b9' }]}
-                                    placeholderStyle={styles.placeholderStyle}
-                                    selectedTextStyle={styles.selectedTextStyle}
-                                    inputSearchStyle={styles.inputSearchStyle}
-                                    iconStyle={styles.iconStyle}
-                                    data={QualificationTypedata}
-                                    search
-                                    maxHeight={400}
-                                    labelField="QualificationTypelabel"
-                                    valueField="QualificationTypevalue"
-                                    placeholder={!QualificationTypeisFocus ? 'Select' : '...'}
-                                    searchPlaceholder="Search..."
-                                    value={QualificationTypevalue}
-                                    onFocus={() => setQualificationTypeIsFocus(true)}
-                                    onBlur={() => setQualificationTypeIsFocus(false)}
-                                    onChange={item => {
-                                        setQualificationTypeValue(item.QualificationTypevalue);
-                                        console.log(item.QualificationTypevalue)
-                                        setQualificationTypeIsFocus(false);
-                                    }}
-                                />
-                                <Entypo
-                                    style={styles.icon}
-                                    name="circle-with-cross" size={24} color="black"
-                                    onPress={() => {
-                                        setQualificationTypeValue(null);
-                                        setQualificationTypeIsFocus(false);
-                                    }}
-                                />
-                            </View>
-
-
-                            <Text style={styles.textshown}>Select Gender</Text>
-                            <View style={styles.icondropdown}>
-
-                                <Dropdown
-                                    style={[styles.dropdown, GenderisFocus && { borderColor: '#25c4b9' }]}
-                                    placeholderStyle={styles.placeholderStyle}
-                                    selectedTextStyle={styles.selectedTextStyle}
-                                    inputSearchStyle={styles.inputSearchStyle}
-                                    iconStyle={styles.iconStyle}
-                                    data={Genderdata}
-                                    search
-                                    maxHeight={400}
-                                    labelField="Genderlabel"
-                                    valueField="Gendervalue"
-                                    placeholder={!GenderisFocus ? 'Select' : '...'}
-                                    searchPlaceholder="Search..."
-                                    value={Gendervalue}
-                                    onFocus={() => setGenderIsFocus(true)}
-                                    onBlur={() => setGenderIsFocus(false)}
-                                    onChange={item => {
-                                        setGenderValue(item.Gendervalue);
-                                        setGenderIsFocus(false);
-                                    }}
-                                />
-                                <Entypo
-                                    style={styles.icon}
-                                    name="circle-with-cross" size={24} color="black"
-                                    onPress={() => {
-                                        setGenderValue(null);
-                                        setGenderIsFocus(false);
-                                    }}
-                                />
-                            </View>
-
-                            <Text style={styles.textshown}>Select Marital Status</Text>
-                            <View style={styles.icondropdown}>
-                                <Dropdown
-                                    style={[styles.dropdown, MaritalStatusisFocus && { borderColor: '#25c4b9' }]}
-                                    placeholderStyle={styles.placeholderStyle}
-                                    selectedTextStyle={styles.selectedTextStyle}
-                                    inputSearchStyle={styles.inputSearchStyle}
-                                    iconStyle={styles.iconStyle}
-                                    data={MaritalStatusdata}
-                                    search
-                                    maxHeight={400}
-                                    labelField="MaritalStatuslabel"
-                                    valueField="MaritalStatusvalue"
-                                    placeholder={!MaritalStatusisFocus ? 'Select' : '...'}
-                                    searchPlaceholder="Search..."
-                                    value={MaritalStatusvalue}
-                                    onFocus={() => setMaritalStatusIsFocus(true)}
-                                    onBlur={() => setMaritalStatusIsFocus(false)}
-                                    onChange={item => {
-                                        setMaritalStatusValue(item.MaritalStatusvalue);
-                                        console.log(item.MaritalStatusvalue)
-                                        setMaritalStatusIsFocus(false);
-                                    }}
-                                />
-                                <Entypo
-                                    style={styles.icon}
-                                    name="circle-with-cross" size={24} color="black"
-                                    onPress={() => {
-                                        setMaritalStatusValue(null);
-                                        setMaritalStatusIsFocus(false);
-                                    }}
-                                />
+                                <Text style={styles.textshown}>Select Qualification Type</Text>
+                                <View style={styles.icondropdown}>
+                                    <Dropdown
+                                        style={[styles.dropdown, QualificationTypeisFocus && { borderColor: '#25c4b9' }]}
+                                        placeholderStyle={styles.placeholderStyle}
+                                        selectedTextStyle={styles.selectedTextStyle}
+                                        inputSearchStyle={styles.inputSearchStyle}
+                                        iconStyle={styles.iconStyle}
+                                        data={QualificationTypedata}
+                                        search
+                                        maxHeight={400}
+                                        labelField="QualificationTypelabel"
+                                        valueField="QualificationTypevalue"
+                                        placeholder={!QualificationTypeisFocus ? 'Select' : '...'}
+                                        searchPlaceholder="Search..."
+                                        value={QualificationTypevalue}
+                                        onFocus={() => setQualificationTypeIsFocus(true)}
+                                        onBlur={() => setQualificationTypeIsFocus(false)}
+                                        onChange={item => {
+                                            setQualificationTypeValue(item.QualificationTypevalue);
+                                            console.log(item.QualificationTypevalue)
+                                            setQualificationTypeIsFocus(false);
+                                        }}
+                                    />
+                                    <Entypo
+                                        style={styles.icon}
+                                        name="circle-with-cross" size={24} color="black"
+                                        onPress={() => {
+                                            setQualificationTypeValue(null);
+                                            setQualificationTypeIsFocus(false);
+                                        }}
+                                    />
                                 </View>
-                                
+
+
+                                <Text style={styles.textshown}>Select Gender</Text>
+                                <View style={styles.icondropdown}>
+
+                                    <Dropdown
+                                        style={[styles.dropdown, GenderisFocus && { borderColor: '#25c4b9' }]}
+                                        placeholderStyle={styles.placeholderStyle}
+                                        selectedTextStyle={styles.selectedTextStyle}
+                                        inputSearchStyle={styles.inputSearchStyle}
+                                        iconStyle={styles.iconStyle}
+                                        data={Genderdata}
+                                        search
+                                        maxHeight={400}
+                                        labelField="Genderlabel"
+                                        valueField="Gendervalue"
+                                        placeholder={!GenderisFocus ? 'Select' : '...'}
+                                        searchPlaceholder="Search..."
+                                        value={Gendervalue}
+                                        onFocus={() => setGenderIsFocus(true)}
+                                        onBlur={() => setGenderIsFocus(false)}
+                                        onChange={item => {
+                                            setGenderValue(item.Gendervalue);
+                                            setGenderIsFocus(false);
+                                        }}
+                                    />
+                                    <Entypo
+                                        style={styles.icon}
+                                        name="circle-with-cross" size={24} color="black"
+                                        onPress={() => {
+                                            setGenderValue(null);
+                                            setGenderIsFocus(false);
+                                        }}
+                                    />
+                                </View>
+
+                                <Text style={styles.textshown}>Select Marital Status</Text>
+                                <View style={styles.icondropdown}>
+                                    <Dropdown
+                                        style={[styles.dropdown, MaritalStatusisFocus && { borderColor: '#25c4b9' }]}
+                                        placeholderStyle={styles.placeholderStyle}
+                                        selectedTextStyle={styles.selectedTextStyle}
+                                        inputSearchStyle={styles.inputSearchStyle}
+                                        iconStyle={styles.iconStyle}
+                                        data={MaritalStatusdata}
+                                        search
+                                        maxHeight={400}
+                                        labelField="MaritalStatuslabel"
+                                        valueField="MaritalStatusvalue"
+                                        placeholder={!MaritalStatusisFocus ? 'Select' : '...'}
+                                        searchPlaceholder="Search..."
+                                        value={MaritalStatusvalue}
+                                        onFocus={() => setMaritalStatusIsFocus(true)}
+                                        onBlur={() => setMaritalStatusIsFocus(false)}
+                                        onChange={item => {
+                                            setMaritalStatusValue(item.MaritalStatusvalue);
+                                            console.log(item.MaritalStatusvalue)
+                                            setMaritalStatusIsFocus(false);
+                                        }}
+                                    />
+                                    <Entypo
+                                        style={styles.icon}
+                                        name="circle-with-cross" size={24} color="black"
+                                        onPress={() => {
+                                            setMaritalStatusValue(null);
+                                            setMaritalStatusIsFocus(false);
+                                        }}
+                                    />
+                                </View>
+
                             </Card>
 
                             <Card elevation={7} containerStyle={{ borderRadius: 10, }}>
 
-                            <Text style={styles.textshown}>Select Primary Language</Text>
-                            <View style={styles.icondropdown}>
-                                <Dropdown
-                                    style={[styles.dropdown, PrimaryLanguageisFocus && { borderColor: '#25c4b9' }]}
-                                    placeholderStyle={styles.placeholderStyle}
-                                    selectedTextStyle={styles.selectedTextStyle}
-                                    inputSearchStyle={styles.inputSearchStyle}
-                                    iconStyle={styles.iconStyle}
-                                    data={PrimaryLanguagedata}
-                                    search
-                                    maxHeight={400}
-                                    labelField="PrimaryLanguagelabel"
-                                    valueField="PrimaryLanguagevalue"
-                                    placeholder={!PrimaryLanguageisFocus ? 'Select' : '...'}
-                                    searchPlaceholder="Search..."
-                                    value={PrimaryLanguagevalue}
-                                    onFocus={() => setPrimaryLanguageIsFocus(true)}
-                                    onBlur={() => setPrimaryLanguageIsFocus(false)}
-                                    onChange={item => {
-                                        setPrimaryLanguageValue(item.PrimaryLanguagevalue);
-                                        console.log(item.PrimaryLanguagevalue)
-                                        setPrimaryLanguageIsFocus(false);
-                                    }}
-                                />
-                                <Entypo
-                                    style={styles.icon}
-                                    name="circle-with-cross" size={24} color="black"
-                                    onPress={() => {
-                                        setPrimaryLanguageValue(null);
-                                        setPrimaryLanguageIsFocus(false);
-                                    }}
-                                />
-                            </View>
+                                <Text style={styles.textshown}>Select Primary Language</Text>
+                                <View style={styles.icondropdown}>
+                                    <Dropdown
+                                        style={[styles.dropdown, PrimaryLanguageisFocus && { borderColor: '#25c4b9' }]}
+                                        placeholderStyle={styles.placeholderStyle}
+                                        selectedTextStyle={styles.selectedTextStyle}
+                                        inputSearchStyle={styles.inputSearchStyle}
+                                        iconStyle={styles.iconStyle}
+                                        data={PrimaryLanguagedata}
+                                        search
+                                        maxHeight={400}
+                                        labelField="PrimaryLanguagelabel"
+                                        valueField="PrimaryLanguagevalue"
+                                        placeholder={!PrimaryLanguageisFocus ? 'Select' : '...'}
+                                        searchPlaceholder="Search..."
+                                        value={PrimaryLanguagevalue}
+                                        onFocus={() => setPrimaryLanguageIsFocus(true)}
+                                        onBlur={() => setPrimaryLanguageIsFocus(false)}
+                                        onChange={item => {
+                                            setPrimaryLanguageValue(item.PrimaryLanguagevalue);
+                                            console.log(item.PrimaryLanguagevalue)
+                                            setPrimaryLanguageIsFocus(false);
+                                        }}
+                                    />
+                                    <Entypo
+                                        style={styles.icon}
+                                        name="circle-with-cross" size={24} color="black"
+                                        onPress={() => {
+                                            setPrimaryLanguageValue(null);
+                                            setPrimaryLanguageIsFocus(false);
+                                        }}
+                                    />
+                                </View>
 
-                            <Text style={styles.textshown}>Is other Language Know?</Text>
-                            <RadioForm
-                                radio_props={isOtherLanguageData}
-                                initial={isOtherLanguagevalue}
-                                onPress={(isOtherLanguagevalue) => setIsOtherLanguagevalue(isOtherLanguagevalue)}
-                                buttonColor="#53C1BA"
-                                selectedButtonColor="#438dc6"
-                                selectedLabelColor="red"
-                                style={styles.radioformstyle}
-                                buttonSize={15}
-                                buttonOuterSize={25}
-                                labelColor="#53C1BA"
-                                labelHorizontal={true}
-                                formHorizontal={true}
-                                labelStyle={styles.radioLabelStyle}
-                            />
-                            {isOtherLanguagevalue ? <View>
-                                <Text style={styles.textshown}>Other Known Language</Text>
+                                <Text style={styles.textshown}>Is other Language Know?</Text>
+                                <RadioForm
+                                    radio_props={isOtherLanguageData}
+                                    initial={isOtherLanguagevalue}
+                                    onPress={(isOtherLanguagevalue) => setIsOtherLanguagevalue(isOtherLanguagevalue)}
+                                    buttonColor="#53C1BA"
+                                    selectedButtonColor="#438dc6"
+                                    selectedLabelColor="red"
+                                    style={styles.radioformstyle}
+                                    buttonSize={15}
+                                    buttonOuterSize={25}
+                                    labelColor="#53C1BA"
+                                    labelHorizontal={true}
+                                    formHorizontal={true}
+                                    labelStyle={styles.radioLabelStyle}
+                                />
+                                {isOtherLanguagevalue ? <View>
+                                    <Text style={styles.textshown}>Other Known Language</Text>
+                                    <View style={[{ flex: 1 }, styles.input]}>
+                                        <View>
+                                            <FlatList
+                                                scrollEnabled={false}
+                                                data={otherKnownLangData}
+                                                renderItem={({ item, index }) => {
+                                                    return (
+                                                        <OtherKnownLanguageFields
+                                                            index={index}
+                                                            onChangeOtherKnownLangId={text => handleOtherKnownLangIdChange(index, text)}
+                                                            onClickRemove={() => handleRemoveItem(index)}
+
+                                                        />
+
+                                                    );
+                                                }}
+                                            />
+
+                                        </View>
+                                        <TouchableOpacity
+                                            style={styles.AddExperienceButton}
+                                            onPress={handleAddItem}>
+                                            <Text style={{ color: '#fff', paddingBottom: 10 }}>Add More Known Languages</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                </View> : null
+                                }
+
+                                <Text style={styles.textshown}>Is Criminal record?</Text>
+
+                                <RadioForm
+                                    radio_props={criminalRecordData}
+                                    initial={criminalRecordvalue}
+                                    onPress={(criminalRecordvalue) => setCriminalRecordValuecr(criminalRecordvalue)}
+                                    buttonColor="#53C1BA"
+                                    selectedButtonColor="#438dc6"
+                                    selectedLabelColor="red"
+                                    buttonSize={15}
+                                    style={styles.radioformstyle}
+                                    buttonOuterSize={25}
+                                    labelColor="#53C1BA"
+                                    labelHorizontal={true}
+                                    formHorizontal={true}
+                                    labelStyle={styles.radioLabelStyle}
+                                />
+                                {criminalRecordvalue ? <View>
+                                    <Text style={styles.textshown}>If Yes, Description of Criminal Record</Text>
+                                    <TextInput
+                                        style={styles.input}
+                                        value={values.CriminalRecordDescription}
+                                        placeholder="Enter Criminal Record Description"
+                                        onChangeText={handleChange('CriminalRecordDescription')}
+                                        onBlur={() => setFieldTouched('CriminalRecordDescription')}
+                                        numberOfLines={3}
+                                        multiline
+                                    />
+                                    {(errors.CriminalRecordDescription && touched.CriminalRecordDescription) &&
+                                        <Text style={styles.errors}>{errors.CriminalRecordDescription}</Text>
+                                    }
+                                </View>
+                                    : null
+                                }
+
+                            </Card>
+
+                            <Card elevation={7} containerStyle={{ borderRadius: 10, }}>
+                                <Text style={styles.textshown}>Location Preferences</Text>
+
                                 <View style={[{ flex: 1 }, styles.input]}>
                                     <View>
                                         <FlatList
                                             scrollEnabled={false}
-                                            data={otherKnownLangData}
+                                            data={data}
                                             renderItem={({ item, index }) => {
                                                 return (
-                                                    <OtherKnownLanguageFields
+                                                    <LocationPreferencesFields
                                                         index={index}
-                                                        onChangeOtherKnownLangId={text => handleOtherKnownLangIdChange(index, text)}
-                                                        onClickRemove={() => handleRemoveItem(index)}
-
+                                                        // data = {Locationdata}
+                                                        onChangeLocationPrefId={txt => {
+                                                            changeLocationPrefID(index, txt);
+                                                        }}
+                                                        onChnageLocationPrefOrder={txt => {
+                                                            changeLocationPrefOrder(index, txt);
+                                                        }}
+                                                        onClickRemove={() => {
+                                                            if (data.length > 1) {
+                                                                let temp = data;
+                                                                temp.splice(index, 1);
+                                                                let xyz = [];
+                                                                temp.map(item => {
+                                                                    xyz.push(item);
+                                                                });
+                                                                setData(xyz);
+                                                            }
+                                                        }}
                                                     />
 
                                                 );
@@ -860,298 +942,215 @@ function WelcomeScreen({ navigation }) {
                                     </View>
                                     <TouchableOpacity
                                         style={styles.AddExperienceButton}
-                                        onPress={handleAddItem}>
-                                        <Text style={{ color: '#fff', paddingBottom: 10 }}>Add More Known Languages</Text>
+                                        onPress={() => {
+                                            let tempData = data;
+                                            tempData.push({ LocationPreferenceID: '', LocationPreferenceOrder: '' });
+                                            let temp = [];
+                                            tempData.map(item => {
+                                                temp.push(item);
+                                            });
+                                            setData(temp);
+                                            console.log(temp)
+                                        }}>
+                                        <Text style={{ color: '#fff', paddingBottom: 10 }}>Add More Location Preferences</Text>
                                     </TouchableOpacity>
                                 </View>
-                            </View> : null
-                            }
-
-                            <Text style={styles.textshown}>Is Criminal record?</Text>
-
-                            <RadioForm
-                                radio_props={criminalRecordData}
-                                initial={criminalRecordvalue}
-                                onPress={(criminalRecordvalue) => setCriminalRecordValuecr(criminalRecordvalue)}
-                                buttonColor="#53C1BA"
-                                selectedButtonColor="#438dc6"
-                                selectedLabelColor="red"
-                                buttonSize={15}
-                                style={styles.radioformstyle}
-                                buttonOuterSize={25}
-                                labelColor="#53C1BA"
-                                labelHorizontal={true}
-                                formHorizontal={true}
-                                labelStyle={styles.radioLabelStyle}
-                            />
-                            {criminalRecordvalue ? <View>
-                                <Text style={styles.textshown}>If Yes, Description of Criminal Record</Text>
-                                <TextInput
-                                    style={styles.input}
-                                    value={values.CriminalRecordDescription}
-                                    placeholder="Enter Criminal Record Description"
-                                    onChangeText={handleChange('CriminalRecordDescription')}
-                                    onBlur={() => setFieldTouched('CriminalRecordDescription')}
-                                    numberOfLines={3}
-                                    multiline
-                                />
-                                {(errors.CriminalRecordDescription && touched.CriminalRecordDescription) &&
-                                    <Text style={styles.errors}>{errors.CriminalRecordDescription}</Text>
-                                }
-                            </View>
-                                : null
-                            }
-
                             </Card>
 
                             <Card elevation={7} containerStyle={{ borderRadius: 10, }}>
-                            <Text style={styles.textshown}>Location Preferences</Text>
 
-                            <View style={[{ flex: 1 }, styles.input]}>
-                                <View>
-                                    <FlatList
-                                        scrollEnabled={false}
-                                        data={data}
-                                        renderItem={({ item, index }) => {
-                                            return (
-                                                <LocationPreferencesFields
-                                                    index={index}
-                                                    // data = {Locationdata}
-                                                    onChangeLocationPrefId={txt => {
-                                                        changeLocationPrefID(index, txt);
-                                                    }}
-                                                    onChnageLocationPrefOrder={txt => {
-                                                        changeLocationPrefOrder(index, txt);
-                                                    }}
-                                                    onClickRemove={() => {
-                                                        if (data.length > 1) {
-                                                            let temp = data;
-                                                            temp.splice(index, 1);
-                                                            let xyz = [];
-                                                            temp.map(item => {
-                                                                xyz.push(item);
-                                                            });
-                                                            setData(xyz);
-                                                        }
-                                                    }}
-                                                />
+                                <Text style={styles.textshown}>Profession Details</Text>
 
-                                            );
+                                <ExperienceModal visible={visible} modalData={modalData} setVisible={setVisible} index={experience.length + 1} setExperience={setExperience} />
+
+                                <View style={styles.input}>
+                                    {experience.map((exe, ind) => {
+                                        key = { ind }
+                                        return (
+                                            <View key={ind}>
+
+                                                <TouchableWithoutFeedback
+                                                    key={ind}
+                                                    onPress={() => {
+                                                        setModalData(experience[ind]);
+                                                        console.log(experience[ind])
+                                                        setVisible(true)
+                                                    }}
+                                                >
+                                                    <View style={styles.input}>
+                                                        <View style={{
+                                                            flexDirection: 'row',
+                                                            justifyContent: 'space-between',
+                                                            alignItems: 'center',
+                                                            marginTop: 10,
+                                                        }}>
+                                                            <Text style={{ marginLeft: 5, color: '#676A6C', fontFamily: 'zwodrei' }}> Experience {ind + 1}</Text>
+
+                                                            <TouchableWithoutFeedback
+                                                                key={ind}
+                                                                onPress={() => {
+                                                                    let temp = [...experience];
+                                                                    temp.splice(ind, 1);
+                                                                    setExperience([...temp]);
+
+
+                                                                }}>
+                                                                <Text style={{ color: '#676A6C', marginLeft: 90, marginRight: 15 }}>Remove</Text>
+                                                            </TouchableWithoutFeedback>
+                                                        </View>
+
+                                                        <Text style={styles.customtextinput} key={ind}>{exe.professionType}</Text>
+
+                                                    </View>
+                                                </TouchableWithoutFeedback>
+                                            </View>
+
+
+                                        )
+                                    })}
+                                    <TouchableOpacity
+                                        style={[styles.AddExperienceButton]}
+                                        onPress={() => {
+                                            setVisible(true)
+                                            console.log(experience)
+                                        }}>
+                                        <Text style={{ color: '#fff' }}>Add Experience Field</Text>
+                                    </TouchableOpacity>
+                                </View>
+
+
+
+
+
+                                <Text style={styles.textshown}>Select Way to Commute</Text>
+                                <View style={styles.icondropdown}>
+                                    <Dropdown
+                                        style={[styles.dropdown, WayToCommuteisFocus && { borderColor: '#25c4b9' }]}
+                                        placeholderStyle={styles.placeholderStyle}
+                                        selectedTextStyle={styles.selectedTextStyle}
+                                        inputSearchStyle={styles.inputSearchStyle}
+                                        iconStyle={styles.iconStyle}
+                                        data={WayToCommutedata}
+                                        search
+                                        maxHeight={400}
+                                        labelField="WayToCommutelabel"
+                                        valueField="WayToCommutevalue"
+                                        placeholder={!WayToCommuteisFocus ? 'Select' : '...'}
+                                        searchPlaceholder="Search..."
+                                        value={WayToCommutevalue}
+                                        onFocus={() => setWayToCommuteIsFocus(true)}
+                                        onBlur={() => setWayToCommuteIsFocus(false)}
+                                        onChange={item => {
+                                            setWayToCommuteValue(item.WayToCommutevalue);
+                                            console.log(item.WayToCommutevalue)
+                                            setWayToCommuteIsFocus(false);
                                         }}
                                     />
-
-                                </View>
-                                <TouchableOpacity
-                                    style={styles.AddExperienceButton}
-                                    onPress={() => {
-                                        let tempData = data;
-                                        tempData.push({ LocationPreferenceID: '', LocationPreferenceOrder: '' });
-                                        let temp = [];
-                                        tempData.map(item => {
-                                            temp.push(item);
-                                        });
-                                        setData(temp);
-                                        console.log(temp)
-                                    }}>
-                                    <Text style={{ color: '#fff', paddingBottom: 10 }}>Add More Location Preferences</Text>
-                                </TouchableOpacity>
+                                    <Entypo
+                                        style={styles.icon}
+                                        name="circle-with-cross" size={24} color="black"
+                                        onPress={() => {
+                                            setWayToCommuteValue(null);
+                                            setWayToCommuteIsFocus(false);
+                                        }}
+                                    />
                                 </View>
                             </Card>
 
                             <Card elevation={7} containerStyle={{ borderRadius: 10, }}>
+                                <Text style={styles.textshown}>Current Address</Text>
 
-                            <Text style={styles.textshown}>Profession Details</Text>
-
-                            <ExperienceModal visible={visible} modalData={modalData} setVisible={setVisible} index={experience.length + 1} setExperience={setExperience} />
-
-                            <View style={styles.input}>
-                                {experience.map((exe, ind) => {
-                                    key = { ind }
-                                    return (
-                                        <View key={ind}>
-
-                                            <TouchableWithoutFeedback
-                                                key={ind}
-                                                onPress={() => {
-                                                    setModalData(experience[ind]);
-                                                    console.log(experience[ind])
-                                                    setVisible(true)
-                                                }}
-                                            >
-                                                <View style={styles.input}>
-                                                    <View style={{
-                                                        flexDirection: 'row',
-                                                        justifyContent: 'space-between',
-                                                        alignItems: 'center',
-                                                        marginTop: 10,
-                                                    }}>
-                                                        <Text style={{ marginLeft: 5, color: '#676A6C', fontFamily: 'zwodrei' }}> Experience {ind + 1}</Text>
-
-                                                        <TouchableWithoutFeedback
-                                                            key={ind}
-                                                            onPress={() => {
-                                                                let temp = [...experience];
-                                                                temp.splice(ind, 1);
-                                                                setExperience([...temp]);
+                                <View style={styles.input}>
+                                    <TextInput
+                                        style={styles.input}
+                                        value={values.CurrentAddress}
+                                        placeholder="Enter Address"
+                                        onChangeText={handleChange('CurrentAddress')}
+                                        onBlur={() => setFieldTouched('CurrentAddress')}
+                                        numberOfLines={3}
+                                        multiline
+                                    />
+                                    {(errors.CurrentAddress && touched.CurrentAddress) &&
+                                        <Text style={styles.errors}>{errors.CurrentAddress}</Text>
+                                    }
 
 
-                                                            }}>
-                                                            <Text style={{ color: '#676A6C', marginLeft: 90, marginRight: 15 }}>Remove</Text>
-                                                        </TouchableWithoutFeedback>
-                                                    </View>
-
-                                                    <Text style={styles.customtextinput} key={ind}>{exe.professionType}</Text>
-
-                                                </View>
-                                            </TouchableWithoutFeedback>
-                                        </View>
-
-
-                                    )
-                                })}
-                                <TouchableOpacity
-                                    style={[styles.AddExperienceButton]}
-                                    onPress={() => {
-                                        setVisible(true)
-                                        console.log(experience)
-                                    }}>
-                                    <Text style={{ color: '#fff' }}>Add Experience Field</Text>
-                                </TouchableOpacity>
-                                </View>
-                            
-
-
-
-
-                            <Text style={styles.textshown}>Select Way to Commute</Text>
-                            <View style={styles.icondropdown}>
-                                <Dropdown
-                                    style={[styles.dropdown, WayToCommuteisFocus && { borderColor: '#25c4b9' }]}
-                                    placeholderStyle={styles.placeholderStyle}
-                                    selectedTextStyle={styles.selectedTextStyle}
-                                    inputSearchStyle={styles.inputSearchStyle}
-                                    iconStyle={styles.iconStyle}
-                                    data={WayToCommutedata}
-                                    search
-                                    maxHeight={400}
-                                    labelField="WayToCommutelabel"
-                                    valueField="WayToCommutevalue"
-                                    placeholder={!WayToCommuteisFocus ? 'Select' : '...'}
-                                    searchPlaceholder="Search..."
-                                    value={WayToCommutevalue}
-                                    onFocus={() => setWayToCommuteIsFocus(true)}
-                                    onBlur={() => setWayToCommuteIsFocus(false)}
-                                    onChange={item => {
-                                        setWayToCommuteValue(item.WayToCommutevalue);
-                                        console.log(item.WayToCommutevalue)
-                                        setWayToCommuteIsFocus(false);
-                                    }}
-                                />
-                                <Entypo
-                                    style={styles.icon}
-                                    name="circle-with-cross" size={24} color="black"
-                                    onPress={() => {
-                                        setWayToCommuteValue(null);
-                                        setWayToCommuteIsFocus(false);
-                                    }}
-                                />
+                                    <TextInput
+                                        style={styles.input}
+                                        value={values.PostalCodeCurrentAddress}
+                                        placeholder="Enter PinCode"
+                                        onChangeText={handleChange('PostalCodeCurrentAddress')}
+                                        onBlur={() => setFieldTouched('PostalCodeCurrentAddress')}
+                                    />
+                                    {(errors.PostalCodeCurrentAddress && touched.PostalCodeCurrentAddress) &&
+                                        <Text style={styles.errors}>{errors.PostalCodeCurrentAddress}</Text>
+                                    }
                                 </View>
                             </Card>
 
-                            <Card elevation={7} containerStyle={{ borderRadius: 10, }}>
-                            <Text style={styles.textshown}>Current Address</Text>
-
-                            <View style={styles.input}>
-                                <TextInput
-                                    style={styles.input}
-                                    value={values.CurrentAddress}
-                                    placeholder="Enter Address"
-                                    onChangeText={handleChange('CurrentAddress')}
-                                    onBlur={() => setFieldTouched('CurrentAddress')}
-                                    numberOfLines={3}
-                                    multiline
-                                />
-                                {(errors.CurrentAddress && touched.CurrentAddress) &&
-                                    <Text style={styles.errors}>{errors.CurrentAddress}</Text>
-                                }
+                            <Card elevation={7} containerStyle={{ borderRadius: 10, marginBottom: 10 }}>
 
 
-                                <TextInput
-                                    style={styles.input}
-                                    value={values.PostalCodeCurrentAddress}
-                                    placeholder="Enter PinCode"
-                                    onChangeText={handleChange('PostalCodeCurrentAddress')}
-                                    onBlur={() => setFieldTouched('PostalCodeCurrentAddress')}
-                                />
-                                {(errors.PostalCodeCurrentAddress && touched.PostalCodeCurrentAddress) &&
-                                    <Text style={styles.errors}>{errors.PostalCodeCurrentAddress}</Text>
-                                }
+                                <View style={styles.checkboxsection}>
+                                    <Text style={styles.textshown}>Is Permanent Address same as Current Address ?</Text>
+                                    <Checkbox
+                                        style={styles.checkbox}
+                                        value={isChecked}
+                                        onValueChange={setChecked}
+                                        color={isChecked ? '#53C1BA' : undefined}
+                                    />
                                 </View>
-                            </Card>
-
-                            <Card elevation={7} containerStyle={{ borderRadius: 10,marginBottom: 10 }}>
-
-
-                            <View style={styles.checkboxsection}>
-                                <Text style={styles.textshown}>Is Permanent Address same as Current Address ?</Text>
-                                <Checkbox
-                                    style={styles.checkbox}
-                                    value={isChecked}
-                                    onValueChange={setChecked}
-                                    color={isChecked ? '#53C1BA' : undefined}
-                                />
-                            </View>
 
 
 
 
-                            <Text style={styles.textshown}>Permanent Address</Text>
+                                <Text style={styles.textshown}>Permanent Address</Text>
 
-                            <View style={styles.input}>
-                                <TextInput
-                                    style={styles.input}
-                                    value={isChecked ? values.PermanentAddress = values.CurrentAddress : ""}
-                                    placeholder="Enter Address"
-                                    onChangeText={handleChange('PermanentAddress')}
-                                    onBlur={() => setFieldTouched('PermanentAddress')}
-                                    numberOfLines={3}
-                                    multiline
-                                />
-                                {(errors.CurrentAddress && touched.PermanentAddress) &&
-                                    <Text style={styles.errors}>{errors.PermanentAddress}</Text>
-                                }
+                                <View style={styles.input}>
+                                    <TextInput
+                                        style={styles.input}
+                                        value={isChecked ? values.PermanentAddress = values.CurrentAddress : ""}
+                                        placeholder="Enter Address"
+                                        onChangeText={handleChange('PermanentAddress')}
+                                        onBlur={() => setFieldTouched('PermanentAddress')}
+                                        numberOfLines={3}
+                                        multiline
+                                    />
+                                    {(errors.CurrentAddress && touched.PermanentAddress) &&
+                                        <Text style={styles.errors}>{errors.PermanentAddress}</Text>
+                                    }
 
-                                <TextInput
-                                    style={styles.input}
-                                    value={isChecked ? values.PostalCodePermanentAddress = values.PostalCodeCurrentAddress : ""}
-                                    placeholder="Enter PinCode"
-                                    onChangeText={handleChange('PostalCodePermanentAddress')}
-                                    onBlur={() => setFieldTouched('PostalCodePermanentAddress')}
-                                />
-                                {(errors.PostalCodePermanentAddress && touched.PostalCodePermanentAddress) &&
-                                    <Text style={styles.errors}>{errors.PostalCodePermanentAddress}</Text>
-                                }
+                                    <TextInput
+                                        style={styles.input}
+                                        value={isChecked ? values.PostalCodePermanentAddress = values.PostalCodeCurrentAddress : ""}
+                                        placeholder="Enter PinCode"
+                                        onChangeText={handleChange('PostalCodePermanentAddress')}
+                                        onBlur={() => setFieldTouched('PostalCodePermanentAddress')}
+                                    />
+                                    {(errors.PostalCodePermanentAddress && touched.PostalCodePermanentAddress) &&
+                                        <Text style={styles.errors}>{errors.PostalCodePermanentAddress}</Text>
+                                    }
                                 </View>
-                            
-                            
 
 
-                            {workforceIDStored == null ?
-                                <View>
-                                    <TouchableOpacity
-                                        style={styles.AddExperienceButton}
-                                        onPress={handleSubmit}>
-                                        <Text style={{ color: '#fff', paddingBottom: 10 }}>Next</Text>
-                                    </TouchableOpacity>
-                                </View>
-                                :
-                                <View>
-                                    <TouchableOpacity
-                                        style={styles.AddExperienceButton}
-                                        onPress={updateSubmitHandler}>
-                                        <Text style={{ color: '#fff', paddingBottom: 10 }}>Update</Text>
-                                    </TouchableOpacity>
-                                </View>
+
+
+                                {workforceIDStored == null ?
+                                    <View>
+                                        <TouchableOpacity
+                                            style={styles.AddExperienceButton}
+                                            onPress={handleSubmit}>
+                                            <Text style={{ color: '#fff', paddingBottom: 10 }}>Next</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                    :
+                                    <View>
+                                        <TouchableOpacity
+                                            style={styles.AddExperienceButton}
+                                            onPress={updateSubmitHandler}>
+                                            <Text style={{ color: '#fff', paddingBottom: 10 }}>Update</Text>
+                                        </TouchableOpacity>
+                                    </View>
 
                                 }
                             </Card>
@@ -1216,7 +1215,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         fontFamily: 'zwodrei',
         marginTop: 10,
-        
+
     },
     cardstyle: {
         borderColor: '#53C1BA',

@@ -39,36 +39,36 @@ const DocsUploadScreen = () => {
     }
 
     const authCtx = useContext(AuthContext);
-   // const token = authCtx.token;
+    // const token = authCtx.token;
     //const wid = authCtx.wid;
 
-    
 
-       
-   // const token = authCtx.token;
-    
-    
+
+
+    // const token = authCtx.token;
+
+
     const FormData = require('form-data');
-    
-    
+
+
     const token = "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoicGl5dXNoLm1hbmlAa3VzaGFsa2FhbWdhci5jb20iLCJqdGkiOiIyYmVkNDhhYi03ZDQ5LTQxYmEtYjk5Yy0wMjNlZWUyYTc3ZGMiLCJleHAiOjE2ODE1NzIyMjksImlzcyI6Imh0dHA6Ly93d3cua3VzaGFsa2FhbWdhci5jb20vYXBpIiwiYXVkIjoiVXNlciJ9.tr7kUIcoR8VSDG5Z0tW6Q9nBu0pFvRvU7K2bnAoxv3U"
 
-    
+
     const workforceId = "8be78039-9b68-4b5a-aa03-92ebb441cc6f";
 
-   
+
     const fileType = "1";
 
-    
+
     const selectedImagedata = selectedImage;
 
     // const filePath = FileSystem.documentDirectory + selectedImagedata;
     // console.log(filePath)
 
-   // const fs = require('fs');
+    // const fs = require('fs');
 
     async function uploadImages() {
-        const token = "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoicGl5dXNoLm1hbmlAa3VzaGFsa2FhbWdhci5jb20iLCJqdGkiOiIyYmVkNDhhYi03ZDQ5LTQxYmEtYjk5Yy0wMjNlZWUyYTc3ZGMiLCJleHAiOjE2ODE1NzIyMjksImlzcyI6Imh0dHA6Ly93d3cua3VzaGFsa2FhbWdhci5jb20vYXBpIiwiYXVkIjoiVXNlciJ9.tr7kUIcoR8VSDG5Z0tW6Q9nBu0pFvRvU7K2bnAoxv3U"
+        const token = "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidGVzdGVyQGdtYWlsLmNvbSIsImp0aSI6ImEzYTkyZTdjLWU0MDMtNDFjYS04Y2UzLTBhYTE0NmQ0NGNhYyIsImV4cCI6MTY4NDE0MDkwMiwiaXNzIjoiaHR0cDovL3d3dy5rdXNoYWxrYWFtZ2FyLmNvbS9hcGkiLCJhdWQiOiJVc2VyIn0.URUAGamUVLydpxRBio4Zy8Oaq8iQXmLny8y-ti5pX-8"
 
         const workforceId = "8be78039-9b68-4b5a-aa03-92ebb441cc6f";
         const selectedImage = selectedImagedata
@@ -97,7 +97,7 @@ const DocsUploadScreen = () => {
         }
     }
 
-    
+
 
     {
         /*
@@ -156,10 +156,10 @@ const DocsUploadScreen = () => {
             <View style={styles.container}>
 
                 <View style={styles.wrapper}>
-                    
+
                     <Card elevation={7} containerStyle={{ borderRadius: 10, marginBottom: 5 }}>
 
-                    <Text style={styles.textshowncenter}>Upload Photo</Text>
+                        <Text style={styles.textshowncenter}>Upload Photo</Text>
                         <ImagePicker onTakeImage={takeImageHandler} />
                     </Card>
 
@@ -167,31 +167,31 @@ const DocsUploadScreen = () => {
 
                         <Text style={styles.textshowncenter}>Upload Adhaar Photo</Text>
 
-                    <Text style={styles.textshown}>1. Front Image</Text>
-                    <ImagePicker onTakeImage={takeImageHandlerAdhaarPicFront} />
+                        <Text style={styles.textshown}>1. Front Image</Text>
+                        <ImagePicker onTakeImage={takeImageHandlerAdhaarPicFront} />
 
-                    <Text style={styles.textshown}>2. Back Image</Text>
-                    <ImagePicker onTakeImage={takeImageHandlerAdhaarPicBack} />
-                   </Card>
-                        
+                        <Text style={styles.textshown}>2. Back Image</Text>
+                        <ImagePicker onTakeImage={takeImageHandlerAdhaarPicBack} />
+                    </Card>
+
                     <Card elevation={7} containerStyle={{ borderRadius: 10, marginBottom: 5 }}>
                         <Text style={styles.textshowncenter}>Upload OtherID Photo</Text>
 
-                    <Text style={styles.textshown}>1. Front Image</Text>
-                    <ImagePicker onTakeImage={takeImageHandlerOtherIDPicFront} />
+                        <Text style={styles.textshown}>1. Front Image</Text>
+                        <ImagePicker onTakeImage={takeImageHandlerOtherIDPicFront} />
 
-                    <Text style={styles.textshown}>2. Back Image</Text>
-                    <ImagePicker onTakeImage={takeImageHandlerOtherIDPicBack} />
+                        <Text style={styles.textshown}>2. Back Image</Text>
+                        <ImagePicker onTakeImage={takeImageHandlerOtherIDPicBack} />
                     </Card>
 
                     <Card elevation={7} containerStyle={{ borderRadius: 10, marginBottom: 5 }}>
 
-                    <View>
-                        <TouchableOpacity
-                            style={styles.AddExperienceButton}
-                            onPress={uploadImages}>
-                            <Text style={{ color: '#fff', paddingBottom: 10 }}>Submit</Text>
-                        </TouchableOpacity>
+                        <View>
+                            <TouchableOpacity
+                                style={styles.AddExperienceButton}
+                                onPress={uploadImages}>
+                                <Text style={{ color: '#fff', paddingBottom: 10 }}>Submit</Text>
+                            </TouchableOpacity>
                         </View>
                     </Card>
 
@@ -288,6 +288,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginLeft: 100
     }
-    
+
 
 });

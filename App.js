@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { StyleSheet, Text, View,Image } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
@@ -19,13 +19,16 @@ import DocsUploadScreen from './screens/DocsUploadScreen';
 import Incomplete_workforceScreen from './screens/Incomplete_workforceScreen';
 import CustomDrawer from './/components//CustomDrawer';
 import Iconnew from 'react-native-vector-icons/FontAwesome';
-import { AntDesign } from '@expo/vector-icons'; 
+import { AntDesign } from '@expo/vector-icons';
 import ProfileScreen from './screens/ProfileScreen';
 import Complete_workforceScreen from './screens/Complete_workforceScreen';
 import Verified_workforceScreen from './screens/Verified_workforceScreen';
 import Approved_workforceScreen from './screens/Approved_workforceScreen';
 import axios from 'axios';
 import ViewWorkforceScreen from './screens/ViewWorkforceScreen';
+import ViewCompleteWorkforceScreenDetails from './screens/ViewCompleteWorkforceScreenDetails'
+import ViewApprovedWorkforceScreenDetails from './screens/ViewApprovedWorkforceScreenDetails'
+import ViewVerifiedWorkforceScreenDetails from './screens/ViewVerifiedWorkforceScreenDetails'
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -33,18 +36,18 @@ const Drawer = createDrawerNavigator();
 function DrawerNavigator() {
   const authCtx = useContext(AuthContext);
   return (
-    <Drawer.Navigator 
+    <Drawer.Navigator
       drawerContent={props => <CustomDrawer {...props} />}
       screenOptions={{
         headerStyle: { backgroundColor: Colors.primary500 },
         contentStyle: { backgroundColor: Colors.primary100 },
         headerTintColor: '#53C1BA',
         //sceneContainerStyle: { backgroundColor: '#d5e4ef' },
-       // drawerContentStyle: { backgroundColor: '#53C1BA' },
-       // drawerInactiveTintColor: '#1B75BB',
+        // drawerContentStyle: { backgroundColor: '#53C1BA' },
+        // drawerInactiveTintColor: '#1B75BB',
         //drawerActiveTintColor: '#bdc6cd',
         //drawerActiveBackgroundColor: '#8eccc8',
-        
+
       }}
     >
       <Drawer.Screen
@@ -61,14 +64,14 @@ function DrawerNavigator() {
                 icon="exit"
                 color='#53C1BA'
                 size={40}
-               onPress={authCtx.logout}
+                onPress={authCtx.logout}
               />
             </View>
           ),
           headerTitle: () => (
             <View style={styles.titlecontainer}>
               <Image
-                style={{ width: 35, height: 50,marginRight:15 }}
+                style={{ width: 35, height: 50, marginRight: 15 }}
                 source={require('.//assets//images//homeIcon.png')}
                 resizeMode='contain'
               />
@@ -99,7 +102,7 @@ function DrawerNavigator() {
           headerTitle: () => (
             <View style={styles.titlecontainer}>
               <Image
-                style={{ width: 35, height: 50,marginRight:15 }}
+                style={{ width: 35, height: 50, marginRight: 15 }}
                 source={require('.//assets//images//homeIcon.png')}
                 resizeMode='contain'
               />
@@ -163,7 +166,7 @@ function DrawerNavigator() {
                 source={require('.//assets//images//homeIcon.png')}
                 resizeMode='contain'
               />
-              <Text style={styles.headertext}>Complete List</Text>
+              <Text style={styles.headertext}>Verified List</Text>
             </View>
           ),
           headerTitleStyle: { flex: 1, textAlign: 'center' },
@@ -199,8 +202,26 @@ function DrawerNavigator() {
           headerTitleStyle: { flex: 1, textAlign: 'center' },
         }}
       />
-      
-      
+      <Stack.Screen
+        name="DocsUploadScreen"
+        component={DocsUploadScreen}
+        options={{
+          headerShown: true,
+          headerTintColor: '#53C1BA',
+          headerTitle: () => (
+            <View style={styles.titlecontainer}>
+              <Image
+                style={{ width: 30, height: 50 }}
+                source={require('.//assets//images//homeIcon.png')}
+                resizeMode='contain'
+              />
+              <Text style={styles.headertext}>Documents Upload</Text>
+            </View>
+          ),
+        }}
+      />
+
+
     </Drawer.Navigator>
   )
 }
@@ -240,7 +261,7 @@ function AuthenticatedStack() {
         contentStyle: { backgroundColor: Colors.primary100 },
       }}
     >
-      
+
       <Stack.Screen
         name="DrawerScreen"
         component={DrawerNavigator}
@@ -302,7 +323,62 @@ function AuthenticatedStack() {
           ),
         }}
       />
-      
+      <Stack.Screen
+        name="ViewCompleteWorkforceDetails"
+        component={ViewCompleteWorkforceScreenDetails}
+        options={{
+          headerShown: true,
+          headerTintColor: '#53C1BA',
+          headerTitle: () => (
+            <View style={styles.titlecontainer}>
+              <Image
+                style={{ width: 30, height: 50 }}
+                source={require('.//assets//images//homeIcon.png')}
+                resizeMode='contain'
+              />
+              <Text style={styles.headertext}>User Profile</Text>
+            </View>
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="ViewApprovedWorkforceDetails"
+        component={ViewApprovedWorkforceScreenDetails}
+        options={{
+          headerShown: true,
+          headerTintColor: '#53C1BA',
+          headerTitle: () => (
+            <View style={styles.titlecontainer}>
+              <Image
+                style={{ width: 30, height: 50 }}
+                source={require('.//assets//images//homeIcon.png')}
+                resizeMode='contain'
+              />
+              <Text style={styles.headertext}>User Profile</Text>
+            </View>
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="ViewVerifiedWorkforceDetails"
+        component={ViewVerifiedWorkforceScreenDetails}
+        options={{
+          headerShown: true,
+          headerTintColor: '#53C1BA',
+          headerTitle: () => (
+            <View style={styles.titlecontainer}>
+              <Image
+                style={{ width: 30, height: 50 }}
+                source={require('.//assets//images//homeIcon.png')}
+                resizeMode='contain'
+              />
+              <Text style={styles.headertext}>User Profile</Text>
+            </View>
+          ),
+        }}
+      />
+
+
     </Stack.Navigator>
   );
 }
@@ -326,7 +402,7 @@ function Root() {
   useEffect(() => {
     async function fetchToken() {
       const storedToken = await AsyncStorage.getItem('token');
-      
+
       if (storedToken) {
         authCtx.authenticate(storedToken);
       }
@@ -337,9 +413,9 @@ function Root() {
     fetchToken();
   }, []);
 
-  
+
   // useEffect(() => {
-   
+
   //   const fetchData = async () => {
   //     const jwtToken = await AsyncStorage.getItem('token');
   //     const response = await axios.get('http://www.kushalkaamgar.com/kk.api/account/user', {
@@ -361,7 +437,7 @@ function Root() {
 
   if (isTryingLogin) {
     //return <AppLoading />;
-    return <LoadingOverlay message="Loading..."/>;
+    return <LoadingOverlay message="Loading..." />;
   }
 
   return <Navigation />;
@@ -372,10 +448,10 @@ export default function App() {
     zwodrei: require('./assets/fonts/zwodrei-Bold.ttf')
   });
   if (!loaded) {
-    return <LoadingOverlay message="Loading..."/>;
+    return <LoadingOverlay message="Loading..." />;
   }
 
-   
+
 
 
   return (
@@ -404,6 +480,6 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontFamily: 'zwodrei',
     marginLeft: 10,
-    marginRight:10,
+    marginRight: 10,
   },
 })

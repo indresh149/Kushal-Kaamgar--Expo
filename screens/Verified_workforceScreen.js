@@ -38,7 +38,9 @@ const Verified_workforceScreen = ({ navigation }) => {
             <Text style={styles.subtitle}>Other ID: {item.otherIdNumber}</Text>
             <View style={styles.buttoncontainer}>
                 <TouchableOpacity style={styles.buttonstyle}
-                    onPress={() => navigation.navigate('Add Workforce')}
+                    onPress={() => navigation.navigate('ViewVerifiedWorkforceDetails', {
+                        param1: item.id,
+                    })}
                 >
                     <Text>View</Text>
                 </TouchableOpacity>

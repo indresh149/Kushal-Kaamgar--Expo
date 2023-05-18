@@ -6,8 +6,6 @@ import axios from 'axios';
 import LoadingOverlay from '../components/ui/LoadingOverlay';
 
 
-
-
 const ProfileScreen = () => {
     const authCtx = useContext(AuthContext);
     const [userDetails, setUserDetails] = useState(null);
