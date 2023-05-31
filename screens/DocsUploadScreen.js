@@ -9,9 +9,10 @@ import { Card } from 'react-native-elements';
 
 const DocsUploadScreen = () => {
 
-    const [selectedImage, setSelectedImage] = useState({});
+    const [selectedImage, setSelectedImage] = useState();
     function takeImageHandler(imageUri) {
         setSelectedImage(imageUri);
+        console.log("Hii")
         console.log(imageUri)
     }
 
@@ -39,40 +40,16 @@ const DocsUploadScreen = () => {
     }
 
     const authCtx = useContext(AuthContext);
-    // const token = authCtx.token;
-    //const wid = authCtx.wid;
-
-
-
-
-    // const token = authCtx.token;
-
-
-    const FormData = require('form-data');
-
-
-    const token = "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoicGl5dXNoLm1hbmlAa3VzaGFsa2FhbWdhci5jb20iLCJqdGkiOiIyYmVkNDhhYi03ZDQ5LTQxYmEtYjk5Yy0wMjNlZWUyYTc3ZGMiLCJleHAiOjE2ODE1NzIyMjksImlzcyI6Imh0dHA6Ly93d3cua3VzaGFsa2FhbWdhci5jb20vYXBpIiwiYXVkIjoiVXNlciJ9.tr7kUIcoR8VSDG5Z0tW6Q9nBu0pFvRvU7K2bnAoxv3U"
-
-
-    const workforceId = "8be78039-9b68-4b5a-aa03-92ebb441cc6f";
-
-
-    const fileType = "1";
-
-
-    const selectedImagedata = selectedImage;
-
-    // const filePath = FileSystem.documentDirectory + selectedImagedata;
-    // console.log(filePath)
-
-    // const fs = require('fs');
+   
+    
 
     async function uploadImages() {
-        const token = "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidGVzdGVyQGdtYWlsLmNvbSIsImp0aSI6ImEzYTkyZTdjLWU0MDMtNDFjYS04Y2UzLTBhYTE0NmQ0NGNhYyIsImV4cCI6MTY4NDE0MDkwMiwiaXNzIjoiaHR0cDovL3d3dy5rdXNoYWxrYWFtZ2FyLmNvbS9hcGkiLCJhdWQiOiJVc2VyIn0.URUAGamUVLydpxRBio4Zy8Oaq8iQXmLny8y-ti5pX-8"
+        const token = ""
 
-        const workforceId = "8be78039-9b68-4b5a-aa03-92ebb441cc6f";
-        const selectedImage = selectedImagedata
-        const fileType = '1';
+        const workforceId = "ea3be847-c237-4191-aebc-9490d0f78fab";
+        //const selectedImage = selectedImage
+        console.log(selectedImage)
+        const fileType = 1;
 
         const headers = {
             'Authorization': `Bearer ${token}`,
@@ -86,7 +63,9 @@ const DocsUploadScreen = () => {
             formData.append('file', selectedImage);
             formData.append('fileType', fileType);
 
-            const response = await axios.post('http://www.kushalkaamgar.com/kk.api/workforce/fileupload', formData, {
+            console.log(formData)
+
+            const response = await axios.post('https:/ff2f-160-202-36-170.ngrok-free.app/workforce/fileupload', formData, {
                 headers: headers
             });
 

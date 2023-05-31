@@ -1,9 +1,19 @@
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Dropdown } from 'react-native-element-dropdown';
 import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'react-native-simple-radio-button';
 
+const LocationPrefData = [
+    { label: 'Locally', value: '1' },
+    { label: 'Within Block', value: '2' },
+    { label: 'Within District', value: '3' },
+    { label: 'Nearby Districts', value: '4' },
+    { label: 'Within State', value: '5' },
+    { label: 'Nearby States', value: '6' },
+    { label: 'Anywhere Within Country', value: '7' },
+    { label: 'Outside Country', value: '8' },
 
+]
 
 const LocationPreferencesFields = ({
     index,
@@ -12,32 +22,17 @@ const LocationPreferencesFields = ({
     onClickRemove,
 }) => {
 
-    const [data, setData] = useState([
-        { label: 'Locally', value: '1' },
-        { label: 'Within Block', value: '2' },
-        { label: 'Within District', value: '3' },
-        { label: 'Nearby Districts', value: '4' },
-        { label: 'Within State', value: '5' },
-        { label: 'Nearby States', value: '6' },
-        { label: 'Anywhere Within Country', value: '7' },
-        { label: 'Outside Country', value: '8' },
-
-    ])
-
-
-
-
     const [value, setValue] = useState(null);
     const [isFocus, setIsFocus] = useState(false);
 
-    const handleDroppdownOptionSelect = (item) => {
-        setValue(item.value);
-        const newData = data.filter((d) =>  d.value !== item.value)
-        setData(newData);
-        onChangeLocationPrefId(item.value);
-        onChnageLocationPrefOrder(index + 1);
-        setIsFocus(false);
-    }
+    // const handleDroppdownOptionSelect = (item) => {
+    //     setValue(item.value);
+    //     const newData = data.filter((d) =>  d.value !== item.value)
+    //     setData(newData);
+    //     onChangeLocationPrefId(item.value);
+    //     onChnageLocationPrefOrder(index + 1);
+    //     setIsFocus(false);
+    // }
 
 
     return (
@@ -76,7 +71,10 @@ const LocationPreferencesFields = ({
                     onFocus={() => setIsFocus(true)}
                     onBlur={() => setIsFocus(false)}
                     onChange={item => {
-                        handleDroppdownOptionSelect(item);
+                        setValue(item.value);
+                        onChangeLocationPrefId(item.value);
+                        onChnageLocationPrefOrder(index + 1);
+                        setIsFocus(false);
                     }}
                 />
             </View>
@@ -86,6 +84,8 @@ const LocationPreferencesFields = ({
         </View>
     );
 };
+
+
 
 const styles = StyleSheet.create({
     inputtextstyle: {

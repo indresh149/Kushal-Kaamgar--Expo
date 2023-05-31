@@ -72,10 +72,10 @@ function ImagePicker({ onTakeImage }) {
             quality: 0.5,
         });
 
-        setPickedImage(image.assets[0].uri);
-        console.log(image.assets[0].uri)
-        onTakeImage(image.assets[0].uri);
-        console.log(image.assets[0].uri)
+        setPickedImage(image.assets[0]);
+       //console.log(image.assets[0].uri)
+        onTakeImage(image.assets[0]);
+       // console.log(image.assets[0].uri)
     }
 
     async function OnGallery() {
@@ -85,7 +85,7 @@ function ImagePicker({ onTakeImage }) {
             quality: 0.5,
         });
         setPickedImage(image.assets[0].uri);
-        console.log(image.assets[0])
+       // console.log(image.assets[0].uri)
         onTakeImage(image.assets[0]);
     }
 

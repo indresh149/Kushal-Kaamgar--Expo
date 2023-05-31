@@ -24,44 +24,44 @@ import DatePicker from 'react-native-modern-datepicker';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 const OtherIDdata = [
-    { OtherIDlabel: 'Voter ID', OtherIDvalue: '1' },
-    { OtherIDlabel: 'Ration Card', OtherIDvalue: '2' },
-    { OtherIDlabel: 'Education Certificate', OtherIDvalue: '3' },
-    { OtherIDlabel: 'Driving License', OtherIDvalue: '4' },
-    { OtherIDlabel: 'PAN Card', OtherIDvalue: '5' },
+    { OtherIDlabel: 'Voter ID', OtherIDvalue: 1 },
+    { OtherIDlabel: 'Ration Card', OtherIDvalue: 2 },
+    { OtherIDlabel: 'Education Certificate', OtherIDvalue: 3 },
+    { OtherIDlabel: 'Driving License', OtherIDvalue: 4 },
+    { OtherIDlabel: 'PAN Card', OtherIDvalue: 5},
 
 ];
 
 const Genderdata = [
-    { Genderlabel: 'Male', Gendervalue: '1' },
-    { Genderlabel: 'Female', Gendervalue: '2' },
+    { Genderlabel: 'Male', Gendervalue: 1 },
+    { Genderlabel: 'Female', Gendervalue: 2 },
 
 ];
 
 const MaritalStatusdata = [
-    { MaritalStatuslabel: 'Married', MaritalStatusvalue: 1 },
-    { MaritalStatuslabel: 'Unmarried', MaritalStatusvalue: 0 },
+    { MaritalStatuslabel: 'Married', MaritalStatusvalue: true },
+    { MaritalStatuslabel: 'Unmarried', MaritalStatusvalue: false },
 
 ];
 
 const QualificationTypedata = [
-    { QualificationTypelabel: 'No Education', QualificationTypevalue: '1' },
-    { QualificationTypelabel: 'Primary School Education', QualificationTypevalue: '2' },
-    { QualificationTypelabel: 'Middle School Education', QualificationTypevalue: '3' },
-    { QualificationTypelabel: 'High School Education', QualificationTypevalue: '4' },
-    { QualificationTypelabel: 'Intermediate Pass', QualificationTypevalue: '5' },
-    { QualificationTypelabel: 'Graduation Pass', QualificationTypevalue: '6' },
-    { QualificationTypelabel: 'Post-graduation Pass', QualificationTypevalue: '7' },
-    { QualificationTypelabel: 'Phd', QualificationTypevalue: '8' },
+    { QualificationTypelabel: 'No Education', QualificationTypevalue: 1 },
+    { QualificationTypelabel: 'Primary School Education', QualificationTypevalue: 2 },
+    { QualificationTypelabel: 'Middle School Education', QualificationTypevalue: 3 },
+    { QualificationTypelabel: 'High School Education', QualificationTypevalue: 4 },
+    { QualificationTypelabel: 'Intermediate Pass', QualificationTypevalue:5 },
+    { QualificationTypelabel: 'Graduation Pass', QualificationTypevalue: 6 },
+    { QualificationTypelabel: 'Post-graduation Pass', QualificationTypevalue: 7 },
+    { QualificationTypelabel: 'Phd', QualificationTypevalue:8 },
 ]
 
-const PrimaryLanguagedata = [
-    { PrimaryLanguagelabel: 'Hindi', PrimaryLanguagevalue: '1' },
-    { PrimaryLanguagelabel: 'English', PrimaryLanguagevalue: '2' },
-    { PrimaryLanguagelabel: 'Urdu', PrimaryLanguagevalue: '3' },
-    { PrimaryLanguagelabel: 'Bengali', PrimaryLanguagevalue: '4' },
-
+const primaryLanguageData = [
+    { PrimaryLanguagelabel: 'Hindi', PrimaryLanguagevalue: 1 },
+    { PrimaryLanguagelabel: 'English', PrimaryLanguagevalue: 2 },
+    { PrimaryLanguagelabel: 'Urdu', PrimaryLanguagevalue: 3 },
+    { PrimaryLanguagelabel: 'Bengali', PrimaryLanguagevalue: 4 },
 ];
+
 
 const WayToCommutedata = [
     { WayToCommutelabel: 'Walking', WayToCommutevalue: '1' },
@@ -77,8 +77,8 @@ const criminalRecordData = [
 ];
 
 const isOtherLanguageData = [
-    { label: "Yes", value: 1 },
-    { label: "No", value: 0 },
+    { label: "Yes", value: true },
+    { label: "No", value: false },
 ];
 
 const registerValidationSchema = yup.object().shape({
@@ -138,18 +138,12 @@ const ViewWorkforceScreen = ({ navigation }) => {
 
     const [fetchedMessage, setFetchedMesssage] = useState([]);
 
-    const [OtherIDvalue, setOtherIDValue] = useState(null);
-    const [OtherIDisFocus, setOtherIDIsFocus] = useState(false);
+    
 
-    const [Gendervalue, setGenderValue] = useState(null);
-    const [GenderisFocus, setGenderIsFocus] = useState(false);
+    
 
-    const [MaritalStatusvalue, setMaritalStatusValue] = useState(null);
-    const [MaritalStatusisFocus, setMaritalStatusIsFocus] = useState(false);
-
-    const [QualificationTypevalue, setQualificationTypeValue] = useState(null);
-    const [QualificationTypeisFocus, setQualificationTypeIsFocus] = useState(false);
-
+   
+   
     const [visible, setVisible] = useState(false);
     const [modalData, setModalData] = useState({});
     const [experience, setExperience] = useState([]);
@@ -204,21 +198,21 @@ const ViewWorkforceScreen = ({ navigation }) => {
     };
 
 
-    const [PrimaryLanguagevalue, setPrimaryLanguageValue] = useState(null);
-    const [PrimaryLanguageisFocus, setPrimaryLanguageIsFocus] = useState(false);
+    //const [PrimaryLanguagevalue, setPrimaryLanguageValue] = useState(null);
+    // const [PrimaryLanguageisFocus, setPrimaryLanguageIsFocus] = useState(false);
 
     const [WayToCommutevalue, setWayToCommuteValue] = useState(null);
     const [WayToCommuteisFocus, setWayToCommuteIsFocus] = useState(false);
 
-    const [criminalRecordvalue, setCriminalRecordValuecr] = useState(null);
-    const [isOtherLanguagevalue, setIsOtherLanguagevalue] = useState(null);
+    const [criminalRecordvalue, setCriminalRecordValuecr] = useState(null || true);
+    
 
     const [date, setDate] = useState(new Date());
 
     const onChange = (event, selectedDate) => {
         const currentDate = selectedDate;
         if (currentDate == new Date()) {
-            setDate(null)
+            setDate(null);
         }
         else {
             setDate(currentDate);
@@ -254,6 +248,8 @@ const ViewWorkforceScreen = ({ navigation }) => {
         console.log(adhaarNumber)
     };
 
+    //const [initialPrimaryLanguageValue, setInitialPrimaryLanguageValue] = useState();
+
     const authCtx = useContext(AuthContext);
 
     const token = authCtx.token;
@@ -264,28 +260,158 @@ const ViewWorkforceScreen = ({ navigation }) => {
     const { param1 } = route.params;
 
     const jwtToken = authCtx.token;
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         const response = await axios.get(`https:/b0c4-160-202-36-62.ngrok-free.app/workforce/getdetails/${param1}/en`, {
+    //             headers: {
+    //                 'Authorization': `Bearer ${jwtToken}`
+    //             }
+    //         });
+    //         setUserData(response.data);
+    //         setInitialPrimaryLanguageValue(response.data.workforce.primaryLanguageId);
+    //         console.log(response.data);
+
+    //         console.log(userdata)
+    //     };
+
+    //     fetchData();
+    // }, []);
+
+    // const [primaryLanguageValue, setPrimaryLanguageValue] = useState(null);
+    // const [primaryLanguageIsFocus, setPrimaryLanguageIsFocus] = useState(false);
+
+
+    // const primaryLanguageData = [
+    //     { PrimaryLanguagelabel: 'Hindi', PrimaryLanguagevalue: 1 },
+    //     { PrimaryLanguagelabel: 'English', PrimaryLanguagevalue: 2 },
+    //     { PrimaryLanguagelabel: 'Urdu', PrimaryLanguagevalue: 3 },
+    //     { PrimaryLanguagelabel: 'Bengali', PrimaryLanguagevalue: 4},
+
+    // ];
+
+    // //const initialPrimaryLanguageValue = userdata.workforce.primaryLanguageId;
+    // console.log("Hii")
+    // console.log(initialPrimaryLanguageValue)
+    // console.log("Bye")
+
+
+    // const initialPrimaryLanguageOption = primaryLanguageData.find(
+    //     (option) => option.PrimaryLanguagevalue === initialPrimaryLanguageValue
+    // );
+
+    // // Set the initial value when the component mounts
+
+
+    // useState(() => {
+    //     setPrimaryLanguageValue(initialPrimaryLanguageOption);
+    // }, []);
+
+    
+
+
+    // if (!userdata) {
+    //     return (
+    //         <LoadingOverlay message="Loading..." />
+    //     );
+    // }
+
+    const [initialPrimaryLanguageValue, setInitialPrimaryLanguageValue] = useState();
+   // const [userdata, setUserData] = useState(null);
+    const [primaryLanguageValue, setPrimaryLanguageValue] = useState(null);
+    const [primaryLanguageIsFocus, setPrimaryLanguageIsFocus] = useState(false);
+
+
+    const [initialOtherIDValue, setInitialOtherIDValue] = useState();
+    const [OtherIDvalue, setOtherIDValue] = useState(null);
+    const [OtherIDisFocus, setOtherIDIsFocus] = useState(false);
+
+    const [initialQualificationTypeValue, setInitialQualificationTypeValue] = useState();
+    const [QualificationTypevalue, setQualificationTypeValue] = useState(null);
+    const [QualificationTypeisFocus, setQualificationTypeIsFocus] = useState(false);
+
+
+    const [initialGenderValue, setInitialGenderValue] = useState();
+    const [Gendervalue, setGenderValue] = useState(null);
+    const [GenderisFocus, setGenderIsFocus] = useState(false);
+
+    const [initialMaritalStatusValue, setInitialMaritalStatusValue] = useState();
+    const [MaritalStatusvalue, setMaritalStatusValue] = useState(null);
+    const [MaritalStatusisFocus, setMaritalStatusIsFocus] = useState(false);
+
+
+    const [initialOtherLanguageValue, setInitialOtherLanguageValue] = useState();
+    const [isOtherLanguagevalue, setIsOtherLanguagevalue] = useState(null);
+
+
+    const preferenceData = [
+    { preferenceOrder: 0 },
+    { preferenceOrder: 1 },
+    { preferenceOrder: 2 },
+  ];
+
     useEffect(() => {
         const fetchData = async () => {
-            const response = await axios.get(`http://www.kushalkaamgar.com/kk.api/workforce/getdetails/${param1}/en`, {
-                headers: {
-                    'Authorization': `Bearer ${jwtToken}`
-                }
-            });
-            setUserData(response.data);
-            console.log(response.data);
-
-            console.log(userdata)
+            try {
+                const response = await axios.get(`https:/5bdd-160-202-36-170.ngrok-free.app/workforce/getdetails/${param1}/en`, {
+                    headers: {
+                        'Authorization': `Bearer ${jwtToken}`
+                    }
+                });
+                setUserData(response.data);
+                setInitialPrimaryLanguageValue(response.data.workforce.primaryLanguageId);
+                setInitialOtherIDValue(response.data.workforce.otherIdType);
+                setInitialQualificationTypeValue(response.data.workforce.qualificationId);
+                setInitialGenderValue(response.data.workforce.genderId);
+                setInitialMaritalStatusValue(response.data.workforce.isMarried);
+                setInitialOtherLanguageValue(response.data.workforce.isOtherLanguage);
+                console.log(response.data);
+            } catch (error) {
+                console.log(error);
+            }
         };
 
         fetchData();
     }, []);
 
+    useEffect(() => {
+        if (initialOtherIDValue && initialPrimaryLanguageValue && userdata) {
+            const initialPrimaryLanguageOption = primaryLanguageData.find(
+                (option) => option.PrimaryLanguagevalue === initialPrimaryLanguageValue
+            );
+
+            const initialOtherIDOption = OtherIDdata.find(
+                (option) => option.OtherIDvalue === initialOtherIDValue
+            );
+
+            const initialQua = QualificationTypedata.find(
+                (option) => option.QualificationTypevalue === initialQualificationTypeValue
+            );
+
+            const initialGenderOption = Genderdata.find(
+                (option) => option.Gendervalue === initialGenderValue
+            );
+
+            const initialMaritalStatusOption = MaritalStatusdata.find(
+                (option) => option.MaritalStatusvalue === initialMaritalStatusValue
+            );
+
+            const initialOtherLanguageOption = isOtherLanguageData.find(
+                (option) => option.value === initialOtherLanguageValue
+            );
+
+            setPrimaryLanguageValue(initialPrimaryLanguageOption);
+            setOtherIDValue(initialOtherIDOption);
+            setQualificationTypeValue(initialQua);
+            setGenderValue(initialGenderOption);
+            setMaritalStatusValue(initialMaritalStatusOption);
+            setIsOtherLanguagevalue(initialOtherLanguageOption);
+        }
+    }, [initialOtherIDValue, initialPrimaryLanguageValue, initialQualificationTypeValue, initialGenderValue, initialMaritalStatusValue, initialOtherLanguageValue, userdata]);
 
     if (!userdata) {
-        return (
-            <LoadingOverlay message="Loading..." />
-        );
+        return <LoadingOverlay message="Loading..." />;
     }
+   
 
     return (
         <Formik
@@ -589,24 +715,30 @@ const ViewWorkforceScreen = ({ navigation }) => {
                                 <Text style={styles.textshown}>Select Primary Language</Text>
                                 <View style={styles.icondropdown}>
                                     <Dropdown
-                                        style={[styles.dropdown, PrimaryLanguageisFocus && { borderColor: '#25c4b9' }]}
+                                        style={[styles.dropdown, primaryLanguageIsFocus && { borderColor: '#25c4b9' }]}
                                         placeholderStyle={styles.placeholderStyle}
                                         selectedTextStyle={styles.selectedTextStyle}
                                         inputSearchStyle={styles.inputSearchStyle}
                                         iconStyle={styles.iconStyle}
-                                        data={PrimaryLanguagedata}
+                                        // data={PrimaryLanguagedata}
                                         search
                                         maxHeight={400}
                                         labelField="PrimaryLanguagelabel"
                                         valueField="PrimaryLanguagevalue"
-                                        placeholder={!PrimaryLanguageisFocus ? 'Select' : '...'}
+                                        placeholder={!primaryLanguageIsFocus ? 'Select' : '...'}
                                         searchPlaceholder="Search..."
-                                        value={PrimaryLanguagevalue}
+                                        // value={PrimaryLanguagevalue}
                                         onFocus={() => setPrimaryLanguageIsFocus(true)}
                                         onBlur={() => setPrimaryLanguageIsFocus(false)}
-                                        onChange={item => {
-                                            setPrimaryLanguageValue(item.PrimaryLanguagevalue);
-                                            console.log(item.PrimaryLanguagevalue)
+                                        // onChange={item => {
+                                        //     setPrimaryLanguageValue(item.PrimaryLanguagevalue);
+                                        //     console.log(item.PrimaryLanguagevalue)
+                                        //     setPrimaryLanguageIsFocus(false);
+                                        // }}
+                                        data={primaryLanguageData}
+                                        value={primaryLanguageValue}
+                                        onChange={(item) => {
+                                            setPrimaryLanguageValue(item);
                                             setPrimaryLanguageIsFocus(false);
                                         }}
                                     />
@@ -670,7 +802,7 @@ const ViewWorkforceScreen = ({ navigation }) => {
 
                                 <RadioForm
                                     radio_props={criminalRecordData}
-                                    initial={criminalRecordvalue}
+                                    initial={criminalRecordvalue || userdata.workforce.isCriminalRecord}
                                     onPress={(criminalRecordvalue) => setCriminalRecordValuecr(criminalRecordvalue)}
                                     buttonColor="#53C1BA"
                                     selectedButtonColor="#438dc6"
@@ -687,7 +819,7 @@ const ViewWorkforceScreen = ({ navigation }) => {
                                     <Text style={styles.textshown}>If Yes, Description of Criminal Record</Text>
                                     <TextInput
                                         style={styles.input}
-                                        value={values.CriminalRecordDescription}
+                                        value={values.CriminalRecordDescription || userdata.workforceTranslations[0].criminalRecordDesc}
                                         placeholder="Enter Criminal Record Description"
                                         onChangeText={handleChange('CriminalRecordDescription')}
                                         onBlur={() => setFieldTouched('CriminalRecordDescription')}
@@ -733,6 +865,7 @@ const ViewWorkforceScreen = ({ navigation }) => {
                                                                 setData(xyz);
                                                             }
                                                         }}
+                                                       // preferenceData={preferenceData}
                                                     />
 
                                                 );
@@ -877,7 +1010,7 @@ const ViewWorkforceScreen = ({ navigation }) => {
 
                                     <TextInput
                                         style={styles.input}
-                                        value={values.PostalCodeCurrentAddress}
+                                        value={values.PostalCodeCurrentAddress || userdata.currentAddresses[0].postalCode}
                                         placeholder="Enter PinCode"
                                         onChangeText={handleChange('PostalCodeCurrentAddress')}
                                         onBlur={() => setFieldTouched('PostalCodeCurrentAddress')}
@@ -909,7 +1042,7 @@ const ViewWorkforceScreen = ({ navigation }) => {
                                 <View style={styles.input}>
                                     <TextInput
                                         style={styles.input}
-                                        value={isChecked ? values.PermanentAddress = values.CurrentAddress : ""}
+                                        value={userdata.permanentAddresses[0].address || values.PermanentAddress}
                                         placeholder="Enter Address"
                                         onChangeText={handleChange('PermanentAddress')}
                                         onBlur={() => setFieldTouched('PermanentAddress')}
@@ -922,7 +1055,7 @@ const ViewWorkforceScreen = ({ navigation }) => {
 
                                     <TextInput
                                         style={styles.input}
-                                        value={isChecked ? values.PostalCodePermanentAddress = values.PostalCodeCurrentAddress : ""}
+                                        value={userdata.permanentAddresses[0].postalCode || values.PostalCodePermanentAddress}
                                         placeholder="Enter PinCode"
                                         onChangeText={handleChange('PostalCodePermanentAddress')}
                                         onBlur={() => setFieldTouched('PostalCodePermanentAddress')}

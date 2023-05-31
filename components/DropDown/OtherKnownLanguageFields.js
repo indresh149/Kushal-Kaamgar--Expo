@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
     },
     placeholderStyle: {
-        color:'#676A6C',
+        color: '#676A6C',
         fontSize: 14,
         fontFamily: 'zwodrei',
         borderRadius: 8,
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
         height: 20,
     },
     inputSearchStyle: {
-        color:'#676A6C',
+        color: '#676A6C',
         height: 40,
         fontSize: 16,
         fontFamily: 'zwodrei',

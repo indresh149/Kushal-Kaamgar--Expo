@@ -12,7 +12,7 @@ const ProfileScreen = () => {
 
 
     const handleForgotPassword = () => {
-        axios.post('http://www.kushalkaamgar.com/kk.api/account/forgot-password',
+        axios.post('https:/26d5-160-202-36-62.ngrok-free.app/account/forgot-password',
             { email: userDetails.email })
             .then(response => {
 
@@ -28,7 +28,7 @@ const ProfileScreen = () => {
     const jwtToken = authCtx.token;
     useEffect(() => {
         const fetchData = async () => {
-            const response = await axios.get('http://www.kushalkaamgar.com/kk.api/account/user', {
+            const response = await axios.get('https://382d-103-191-235-186.ngrok-free.app/account/user', {
                 headers: {
                     'Authorization': `Bearer ${jwtToken}`
                 }

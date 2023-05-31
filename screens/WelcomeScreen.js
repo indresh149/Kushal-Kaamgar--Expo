@@ -1,6 +1,7 @@
 import axios from 'axios';
-import { useContext, useState } from 'react';
-
+import React, { useState } from 'react';
+import { useContext, } from 'react';
+import RNPickerSelect from 'react-native-picker-select';
 import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 import { Formik } from 'formik';
 import { Alert, FlatList, ScrollView, Button, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
@@ -18,6 +19,7 @@ import Custom_Dropdown from '../components/DropDown/Custom_Dropdown';
 import { Card } from 'react-native-elements';
 import DatePicker from 'react-native-modern-datepicker';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+
 
 
 
@@ -266,6 +268,23 @@ function WelcomeScreen({ navigation }) {
 
     const idNumber = adhaarNumber; // replace with actual ID number
     // const token = ''; // replace with actual JWT token
+
+    const [selectedValues, setSelectedValues] = useState([]);
+
+    const dataa = [
+        { label: 'Locally', value: '1' },
+        { label: 'Within Block', value: '2' },
+        { label: 'Within District', value: '3' },
+        { label: 'Nearby Districts', value: '4' },
+        { label: 'Within State', value: '5' },
+        { label: 'Nearby States', value: '6' },
+        { label: 'Anywhere Within Country', value: '7' },
+        { label: 'Outside Country', value: '8' },
+    ];
+
+    const handleValueChange = (value) => {
+        setSelectedValues(value);
+    };
 
 
     const BASE_URL = 'http://www.kushalkaamgar.com/kk.api';
@@ -904,6 +923,7 @@ function WelcomeScreen({ navigation }) {
                             </Card>
 
                             <Card elevation={7} containerStyle={{ borderRadius: 10, }}>
+                                
                                 <Text style={styles.textshown}>Location Preferences</Text>
 
                                 <View style={[{ flex: 1 }, styles.input]}>
@@ -933,6 +953,7 @@ function WelcomeScreen({ navigation }) {
                                                                 setData(xyz);
                                                             }
                                                         }}
+                                                    
                                                     />
 
                                                 );

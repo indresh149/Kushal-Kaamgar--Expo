@@ -12,13 +12,13 @@ const Incomplete_workforceScreen = ({ navigation }) => {
     const jwtToken = authCtx.token;
     useEffect(() => {
         const fetchData = async () => {
-            const response = await axios.get('http://www.kushalkaamgar.com/kk.api/workforce/getsavedlist/en', {
+            const response = await axios.get('https:/5bdd-160-202-36-170.ngrok-free.app/workforce/getsavedlist/en', {
                 headers: {
                     'Authorization': `Bearer ${jwtToken}`
                 }
             });
             setData(response.data);
-            
+
             console.log(response.data)
         };
 
@@ -38,7 +38,6 @@ const Incomplete_workforceScreen = ({ navigation }) => {
                 <TouchableOpacity style={styles.buttonstyle}
                     onPress={() => navigation.navigate('ViewWorkforceDetails', {
                         param1: item.id,
-                        
                     })}
                 >
                     <Text>View</Text>
@@ -83,7 +82,7 @@ const styles = StyleSheet.create({
         color: '#444',
     },
     buttonstyle: {
-        padding:5,
+        padding: 5,
         width: 200,
         height: 35,
         backgroundColor: '#1B75BB',
@@ -93,10 +92,10 @@ const styles = StyleSheet.create({
         bottom: 10,
         borderRadius: 8,
         marginTop: 17,
-       
+
     },
     buttoncontainer: {
-        flex:1,
+        flex: 1,
         justifyContent: 'flex-end',
         alignItems: 'flex-end',
         alignItems: 'center',
