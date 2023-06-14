@@ -40,41 +40,80 @@ const DocsUploadScreen = () => {
     }
 
     const authCtx = useContext(AuthContext);
-   
-    
 
-    async function uploadImages() {
-        const token = ""
 
-        const workforceId = "ea3be847-c237-4191-aebc-9490d0f78fab";
-        //const selectedImage = selectedImage
-        console.log(selectedImage)
-        const fileType = 1;
+    const token = "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidGVzdGVyQGdtYWlsLmNvbSIsImp0aSI6ImRhZjNjZTNlLTJjOGUtNDk5Ny04NGU4LTRjZWQ1MWJkMzk0ZCIsImV4cCI6MTY4NjA3MDAzMywiaXNzIjoiaHR0cDovL3d3dy5rdXNoYWxrYWFtZ2FyLmNvbS9hcGkiLCJhdWQiOiJVc2VyIn0.6Y_Ko_mB7I3Wql5u0q3pcyYMFffSWOKouxOW7X7fm3I"
+    const workforceId = "ca2f4c1f-606f-44e7-a633-1f914d29e3d1";
+    //const selectedImage = selectedImage
+    console.log(selectedImage)
+    const fileType = 1;
+
+
+    const uploadImages = async () => {
+        const url = 'http://www.kushalkaamgar.com/kk.api/workforce/fileupload';
+        const formData = new FormData();
+        formData.append('WorkforceId', workforceId);
+        formData.append('file', selectedImage);
+        formData.append('fileType', fileType);
+        console.log(formData)
 
         const headers = {
-            'Authorization': `Bearer ${token}`,
-            accept: 'application/json',
-            'Content-Type': 'multipart/form-data'
-        }
+            'Authorization': `Bearer ${token}`
+        };
+
+        const options = {
+            method: 'POST',
+            headers,
+            body: formData
+        };
+        console.log(options);
 
         try {
-            const formData = new FormData();
-            formData.append('WorkforceId', workforceId);
-            formData.append('file', selectedImage);
-            formData.append('fileType', fileType);
-
-            console.log(formData)
-
-            const response = await axios.post('https:/ff2f-160-202-36-170.ngrok-free.app/workforce/fileupload', formData, {
-                headers: headers
-            });
-
-            console.log(response.data); // true or false
+            const response = await fetch(url, options);
+            console.log(response)
+            if (response.ok) {
+                Alert.alert('Success', 'File uploaded successfully.');
+            } else {
+                Alert.alert('Error', 'Failed to upload file.');
+            }
         } catch (error) {
-            console.log(error);
-            throw error;
+            console.error('Error uploading file:', error);
+            Alert.alert('Error', 'Failed to upload file.');
         }
-    }
+    };
+
+
+    // async function uploadImages() {
+    //     const token = "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidGVzdGVyQGdtYWlsLmNvbSIsImp0aSI6ImEyMzZhMGEzLTgyMTEtNGNkOC1iYWE2LTcxNDA5YmFjYThhOCIsImV4cCI6MTY4NTk1MjYxMCwiaXNzIjoiaHR0cDovL3d3dy5rdXNoYWxrYWFtZ2FyLmNvbS9hcGkiLCJhdWQiOiJVc2VyIn0.rDS5JuI1Ub3IhnFBH2bRkK3U8C9KARMsnPbQp6iw7vM"
+    //     const workforceId = "c7e0e538-ae88-48c4-8772-c00a85e2e137";
+    //     //const selectedImage = selectedImage
+    //     console.log(selectedImage)
+    //     const fileType = 1;
+
+    //     const headers = {
+    //         'Authorization': `Bearer ${token}`,
+    //         accept: 'application/json',
+    //         'Content-Type': 'multipart/form-data'
+    //     }
+
+    //     try {
+    //         const formData = new FormData();
+    //         formData.append('WorkforceId', workforceId);
+    //         formData.append('file', selectedImage);
+    //         formData.append('fileType', fileType);
+
+    //         console.log(formData)
+
+    //         const response = await axios.post('https://8137-160-202-36-59.ngrok-free.app/workforce/fileupload', formData, {
+    //             headers: headers
+    //         });
+
+    //         console.log(response.data); // true or false
+    //     } catch (error) {
+    //         console.log(error);
+    //         throw error;
+    //     }
+    // }
 
 
 

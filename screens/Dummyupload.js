@@ -40,7 +40,7 @@ const uploadImages = async () => {
                 });
                 formData.append('fileType', fileType);
 
-                const response = await axios.post('https:/26d5-160-202-36-62.ngrok-free.app/workforce/fileupload', formData, {
+                const response = await axios.post('http://www.kushalkaamgar.com/kk.api/workforce/fileupload', formData, {
                     headers: headers
                 });
 

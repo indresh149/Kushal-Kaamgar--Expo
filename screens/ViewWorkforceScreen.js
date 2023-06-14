@@ -262,7 +262,7 @@ const ViewWorkforceScreen = ({ navigation }) => {
     const jwtToken = authCtx.token;
     // useEffect(() => {
     //     const fetchData = async () => {
-    //         const response = await axios.get(`https:/b0c4-160-202-36-62.ngrok-free.app/workforce/getdetails/${param1}/en`, {
+    //         const response = await axios.get(`http://www.kushalkaamgar.com/kk.api/workforce/getdetails/${param1}/en`, {
     //             headers: {
     //                 'Authorization': `Bearer ${jwtToken}`
     //             }
@@ -352,7 +352,7 @@ const ViewWorkforceScreen = ({ navigation }) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`https:/5bdd-160-202-36-170.ngrok-free.app/workforce/getdetails/${param1}/en`, {
+                const response = await axios.get(`http://www.kushalkaamgar.com/kk.api/workforce/getdetails/${param1}/en`, {
                     headers: {
                         'Authorization': `Bearer ${jwtToken}`
                     }

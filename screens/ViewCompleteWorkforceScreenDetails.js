@@ -58,7 +58,7 @@ const ViewCompleteWorkforceScreenDetails = () => {
     const jwtToken = authCtx.token;
     useEffect(() => {
         const fetchData = async () => {
-            const response = await axios.get(`https:/ff2f-160-202-36-170.ngrok-free.app/workforce/getdetails/${param1}/en`, {
+            const response = await axios.get(`http://www.kushalkaamgar.com/kk.api/workforce/getdetails/${param1}/en`, {
                 headers: {
                     'Authorization': `Bearer ${jwtToken}`
                 }

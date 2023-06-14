@@ -53,7 +53,7 @@ const LoginScreen = ({ navigation}) => {
   
   async function fetchData(){
       const jwtToken = await AsyncStorage.getItem('token');
-    const response = await axios.get('https:/26d5-160-202-36-62.ngrok-free.app/account/user', {
+    const response = await axios.get('http://www.kushalkaamgar.com/kk.api/account/user', {
         headers: {
           'Authorization': `Bearer ${jwtToken}`
         }

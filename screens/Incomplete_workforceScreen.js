@@ -12,7 +12,7 @@ const Incomplete_workforceScreen = ({ navigation }) => {
     const jwtToken = authCtx.token;
     useEffect(() => {
         const fetchData = async () => {
-            const response = await axios.get('https:/5bdd-160-202-36-170.ngrok-free.app/workforce/getsavedlist/en', {
+            const response = await axios.get('http://www.kushalkaamgar.com/kk.api/workforce/getsavedlist/en', {
                 headers: {
                     'Authorization': `Bearer ${jwtToken}`
                 }

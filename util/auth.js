@@ -2,7 +2,7 @@ import axios from 'axios';
 
 
 async function authenticate(mode, email, password) {
-    const url = `https:/5bdd-160-202-36-170.ngrok-free.app/account/${mode}`;
+    const url = `http://www.kushalkaamgar.com/kk.api/account/${mode}`;
 
     const response = await axios.post(url, {
         email: email,
@@ -17,7 +17,7 @@ async function authenticate(mode, email, password) {
 }
 
 async function authcreate(mode, firstname, lastname, email, phonenumber, password, confirmpassword) {
-    const url = `https:/b0c4-160-202-36-62.ngrok-free.app/account/${mode}`;
+    const url = `http://www.kushalkaamgar.com/kk.api/account/${mode}`;
 
     const response = await axios.post(url, {
         firstname: firstname,

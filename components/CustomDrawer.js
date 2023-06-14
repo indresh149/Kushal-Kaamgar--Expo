@@ -1,4 +1,4 @@
-import React, { useContext, useState ,useEffect} from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
     View,
@@ -25,7 +25,7 @@ const CustomDrawer = props => {
     const [storedEmail, setStoredEmail] = useState(null);
     const [storedFirstName, setStoredFirstName] = useState(null);
     const [storedlastName, setStoredlastName] = useState(null);
-    
+
 
     useEffect(() => {
         async function fetchEmail() {
@@ -49,11 +49,11 @@ const CustomDrawer = props => {
                 {...props}
                 contentContainerStyle={{ backgroundColor: '#F3F3F4' }}>
                 <ImageBackground
-            
-                    style={{ padding: 1,margin:1 }}>
+
+                    style={{ padding: 1, margin: 1 }}>
                     <Image
                         source={require('..//assets//images//homeIcon.png')}
-                        style={{ height: 70, width: 70, marginBottom: 10 ,marginLeft:100,resizeMode:'contain'}}
+                        style={{ height: 70, width: 70, marginBottom: 10, marginLeft: 100, resizeMode: 'contain' }}
                     />
                     <View style={{ flexDirection: 'column', alignItems: 'center' }}>
                         <EvilIcons name="user" size={45} color="#53C1BA" />
@@ -62,28 +62,28 @@ const CustomDrawer = props => {
                                 color: '#676A6C',
                                 fontSize: 16,
                                 fontFamily: 'zwodrei',
-                                 marginTop:5,
+                                marginTop: 5,
                                 //  marginLeft: 5,
-                                marginBottom:5
+                                marginBottom: 5
 
                             }}>
                             {authCtx.firstName || storedFirstName} {authCtx.lastName || storedlastName}
                         </Text>
-                    <Text
-                        style={{
-                            color: '#676A6C',
-                            fontSize: 13,
+                        <Text
+                            style={{
+                                color: '#676A6C',
+                                fontSize: 13,
                                 fontFamily: 'zwodrei',
                                 marginBottom: 10
-                           // marginTop:10
-                              //  marginLeft: 5,
-                            
-                        }}>
+                                // marginTop:10
+                                //  marginLeft: 5,
+
+                            }}>
                             {authCtx.email || storedEmail}
-                            
+
                         </Text>
                     </View>
-                    
+
                 </ImageBackground>
                 <View style={{ flex: 1, backgroundColor: '#fff', paddingTop: 5, borderTopWidth: 1, borderTopColor: '#1B75BB' }}>
                     <DrawerItemList {...props} />
@@ -96,11 +96,11 @@ const CustomDrawer = props => {
                             icon="people"
                             color='#53C1BA'
                             size={25}
-                            
+
                         />
                         <Text
                             style={{
-                                color:'#676A6C',
+                                color: '#676A6C',
                                 fontSize: 15,
                                 fontFamily: 'zwodrei',
                                 marginLeft: 5,

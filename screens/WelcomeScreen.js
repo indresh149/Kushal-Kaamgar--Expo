@@ -92,8 +92,8 @@ const registerValidationSchema = yup.object().shape({
     email: yup.string()
         .email('Please enter valid email'),
     phonenumber: yup.string()
-        .min(13, 'Must be exactly 10 digits')
-        .max(13, 'Must be exactlt 10 digits')
+        .min(10, 'Must be exactly 10 digits')
+        .max(10, 'Must be exactlt 10 digits')
         .required('Phone Number is required'),
     Altphonenumber: yup.string()
         .min(10, 'Must be exactly 10 digits')
@@ -923,7 +923,7 @@ function WelcomeScreen({ navigation }) {
                             </Card>
 
                             <Card elevation={7} containerStyle={{ borderRadius: 10, }}>
-                                
+
                                 <Text style={styles.textshown}>Location Preferences</Text>
 
                                 <View style={[{ flex: 1 }, styles.input]}>
@@ -953,7 +953,7 @@ function WelcomeScreen({ navigation }) {
                                                                 setData(xyz);
                                                             }
                                                         }}
-                                                    
+
                                                     />
 
                                                 );

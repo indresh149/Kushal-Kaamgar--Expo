@@ -1,9 +1,9 @@
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Dropdown } from 'react-native-element-dropdown';
 import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'react-native-simple-radio-button';
 
-const LocationPrefData = [
+const data = [
     { label: 'Locally', value: '1' },
     { label: 'Within Block', value: '2' },
     { label: 'Within District', value: '3' },
@@ -68,6 +68,7 @@ const LocationPreferencesFields = ({
                     placeholder={!isFocus ? 'Click to choose' : '...'}
                     searchPlaceholder="Search..."
                     value={value}
+
                     onFocus={() => setIsFocus(true)}
                     onBlur={() => setIsFocus(false)}
                     onChange={item => {
@@ -121,7 +122,7 @@ const styles = StyleSheet.create({
         marginRight: 5,
     },
     label: {
-        color:'#676A6C',
+        color: '#676A6C',
         position: 'absolute',
         backgroundColor: 'white',
         left: 22,
@@ -133,13 +134,13 @@ const styles = StyleSheet.create({
         borderRadius: 8,
     },
     placeholderStyle: {
-        color:'#676A6C',
+        color: '#676A6C',
         fontSize: 14,
         fontFamily: 'zwodrei',
         borderRadius: 8,
     },
     selectedTextStyle: {
-        color:'#676A6C',
+        color: '#676A6C',
         fontSize: 16,
         fontFamily: 'zwodrei',
     },
