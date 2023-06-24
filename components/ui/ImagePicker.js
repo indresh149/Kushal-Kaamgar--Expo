@@ -72,9 +72,9 @@ function ImagePicker({ onTakeImage }) {
             quality: 0.5,
         });
 
-        setPickedImage(image.uri);
-       //console.log(image.assets[0].uri)
-        onTakeImage(image.uri);
+        setPickedImage(image.assets[0].uri);
+       //console.log(image.assets[0])
+        onTakeImage(image.assets[0]);
        // console.log(image.assets[0].uri)
     }
 
@@ -84,9 +84,9 @@ function ImagePicker({ onTakeImage }) {
             aspect: [16, 9],
             quality: 0.5,
         });
-        setPickedImage(image.uri);
+        setPickedImage(image.assets[0].uri);
        // console.log(image.assets[0].uri)
-        onTakeImage(image.uri);
+        onTakeImage(image.assets[0]);
     }
 
     const RemoveImage = () => {

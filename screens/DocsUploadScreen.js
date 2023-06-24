@@ -7,13 +7,22 @@ import { string } from 'yup';
 import * as FileSystem from 'expo-file-system';
 import { Card } from 'react-native-elements';
 
-const DocsUploadScreen = () => {
 
+const DocsUploadScreen = () => {
     const [selectedImage, setSelectedImage] = useState();
+    const [fileType, setFileType] = useState();
     function takeImageHandler(imageUri) {
-        setSelectedImage(imageUri);
+        const filePath = imageUri.uri;
+
+        const cleanedFilePath = filePath.replace('file:///', 'file:/');
+        // console.log(cleanedFilePath)
+        //console.log(imageUri)
+
+        setSelectedImage(imageUri.uri);
+        setFileType(imageUri.type)
         console.log("Hii")
-        console.log(imageUri)
+        console.log(imageUri.uri)
+        console.log(imageUri.type)
     }
 
     const [AdhaarPicFront, setAdhaarPicFront] = useState();
@@ -41,131 +50,61 @@ const DocsUploadScreen = () => {
 
     const authCtx = useContext(AuthContext);
 
-
-    const token = "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidGVzdGVyQGdtYWlsLmNvbSIsImp0aSI6ImRhZjNjZTNlLTJjOGUtNDk5Ny04NGU4LTRjZWQ1MWJkMzk0ZCIsImV4cCI6MTY4NjA3MDAzMywiaXNzIjoiaHR0cDovL3d3dy5rdXNoYWxrYWFtZ2FyLmNvbS9hcGkiLCJhdWQiOiJVc2VyIn0.6Y_Ko_mB7I3Wql5u0q3pcyYMFffSWOKouxOW7X7fm3I"
-    const workforceId = "ca2f4c1f-606f-44e7-a633-1f914d29e3d1";
-    //const selectedImage = selectedImage
-    console.log(selectedImage)
-    const fileType = 1;
+    const jwtToken = authCtx.token;
+    const wfid = authCtx.wid;
 
 
-    const uploadImages = async () => {
-        const url = 'http://www.kushalkaamgar.com/kk.api/workforce/fileupload';
-        const formData = new FormData();
-        formData.append('WorkforceId', workforceId);
-        formData.append('file', selectedImage);
-        formData.append('fileType', fileType);
-        console.log(formData)
 
-        const headers = {
-            'Authorization': `Bearer ${token}`
-        };
+    async function uploadImages() {
+        let fileUri = selectedImage;
+        let workforceId = wfid;
+        let fileType = "1";
 
-        const options = {
-            method: 'POST',
-            headers,
-            body: formData
-        };
-        console.log(options);
+        const token = jwtToken
+        console.log(workforceId);
+        const url = "http://www.kushalkaamgar.com/kk.api/workforce/fileupload";
 
         try {
-            const response = await fetch(url, options);
-            console.log(response)
+            // const file = await FileSystem.readAsStringAsync(fileUri, {
+            //     encoding: FileSystem.EncodingType.Base64,
+            // });
+
+            const formData = new FormData();
+            formData.append('WorkforceId', workforceId);
+            formData.append('file', {
+                uri: fileUri,
+                name: 'image.jpg',
+                type: 'image/jpeg', // Adjust the file type if needed
+            });
+            formData.append('fileType', fileType);
+
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'multipart/form-data',
+                },
+                body: formData,
+            });
+
             if (response.ok) {
-                Alert.alert('Success', 'File uploaded successfully.');
+                const data = await response.json();
+                console.log(response)
+                console.log(data)
+                if (data === true) {
+                    Alert.alert('Success', 'File uploaded successfully.');
+                } else {
+                    Alert.alert('Error', 'Failed to upload file.');
+                }
             } else {
                 Alert.alert('Error', 'Failed to upload file.');
             }
         } catch (error) {
             console.error('Error uploading file:', error);
+            console.log(error)
             Alert.alert('Error', 'Failed to upload file.');
         }
-    };
-
-
-    // async function uploadImages() {
-    //     const token = "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidGVzdGVyQGdtYWlsLmNvbSIsImp0aSI6ImEyMzZhMGEzLTgyMTEtNGNkOC1iYWE2LTcxNDA5YmFjYThhOCIsImV4cCI6MTY4NTk1MjYxMCwiaXNzIjoiaHR0cDovL3d3dy5rdXNoYWxrYWFtZ2FyLmNvbS9hcGkiLCJhdWQiOiJVc2VyIn0.rDS5JuI1Ub3IhnFBH2bRkK3U8C9KARMsnPbQp6iw7vM"
-    //     const workforceId = "c7e0e538-ae88-48c4-8772-c00a85e2e137";
-    //     //const selectedImage = selectedImage
-    //     console.log(selectedImage)
-    //     const fileType = 1;
-
-    //     const headers = {
-    //         'Authorization': `Bearer ${token}`,
-    //         accept: 'application/json',
-    //         'Content-Type': 'multipart/form-data'
-    //     }
-
-    //     try {
-    //         const formData = new FormData();
-    //         formData.append('WorkforceId', workforceId);
-    //         formData.append('file', selectedImage);
-    //         formData.append('fileType', fileType);
-
-    //         console.log(formData)
-
-    //         const response = await axios.post('https://8137-160-202-36-59.ngrok-free.app/workforce/fileupload', formData, {
-    //             headers: headers
-    //         });
-
-    //         console.log(response.data); // true or false
-    //     } catch (error) {
-    //         console.log(error);
-    //         throw error;
-    //     }
-    // }
-
-
-
-    {
-        /*
-
-       
-    const headers = {
-        Authorization: "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoicGl5dXNoLm1hbmlAa3VzaGFsa2FhbWdhci5jb20iLCJqdGkiOiI0NDlhYTIwNi01ODViLTQ5MjMtODlhNy0yODViMmY3YmRlNjUiLCJleHAiOjE2ODAyNzc3MjMsImlzcyI6Imh0dHA6Ly93d3cua3VzaGFsa2FhbWdhci5jb20vYXBpIiwiYXVkIjoiVXNlciJ9.TJGtNhqUwrwdtqH_kRYidEh6K9oHPkmI9j8-WsoG8o0",
-        'Content-Type': 'multipart/form-data',
-    };
-
-    const imageData = {
-        WorkforceId: "0dbb07cd-30f0-4dec-ac9d-82a805be6771",
-        file: selectedImage,
-        fileType: 1
-    };
-
-    async function uploadImages() {
-        try {
-            const formData = new FormData();
-            formData.append("WorkforceId", "0dbb07cd-30f0-4dec-ac9d-82a805be6771");
-            formData.append("file", selectedImage);
-            formData.append("fileType", 1);
-            // console.log(formData)
-
-            // const response = await fetch('http://www.kushalkaamgar.com/kk.api/workforce/fileupload', {
-            //     method: 'POST',
-            //     headers: headers,
-            //     body: formData,
-            // });
-            await fetch('http://www.kushalkaamgar.com/kk.api/workforce/fileupload', {
-                method: 'POST',
-                headers: headers,
-                body: formData,
-            }).then((res) => console.log("Sucess",res)).catch(error => console.log("Error: ", error))
-            // console.log(response)
-            //const resData = await response;
-            //console.log(resData);
-            // if (!response.ok) {
-            //     throw new Error(resData.message);
-            // }
-        } catch (error) {
-            console.log(error);
-            throw error;
-        }
     }
-
-     */
-    }
-
-
 
 
 

@@ -17,8 +17,7 @@ import { AuthContext } from '../store/auth-context';
 import Checkbox from 'expo-checkbox';
 import Custom_Dropdown from '../components/DropDown/Custom_Dropdown';
 import { Card } from 'react-native-elements';
-import DatePicker from 'react-native-modern-datepicker';
-import DateTimePickerModal from "react-native-modal-datetime-picker";
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 
 
@@ -249,6 +248,9 @@ function WelcomeScreen({ navigation }) {
     const [selectedDate, setSelectedDate] = useState('');
 
 
+   
+
+
 
     const [adhaarNumber, setAdhaarNumber] = useState('');
 
@@ -418,8 +420,8 @@ function WelcomeScreen({ navigation }) {
                 }
             })
             .catch((error) => {
-                console.log('Error adding new workforce data:', error);
-                Alert.alert('Network Error. Please try again')
+                // console.log('Error adding new workforce data:', error);
+                //Alert.alert('Network Error. Please try again')
             });
 
     }
@@ -644,8 +646,7 @@ function WelcomeScreen({ navigation }) {
 
                                 </View>
 
-
-
+                            
                                 <TextInput
                                     style={styles.input}
                                     value={values.OtherIDNumber}

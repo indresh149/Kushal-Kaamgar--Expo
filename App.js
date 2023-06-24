@@ -29,7 +29,7 @@ import ViewWorkforceScreen from './screens/ViewWorkforceScreen';
 import ViewCompleteWorkforceScreenDetails from './screens/ViewCompleteWorkforceScreenDetails'
 import ViewApprovedWorkforceScreenDetails from './screens/ViewApprovedWorkforceScreenDetails'
 import ViewVerifiedWorkforceScreenDetails from './screens/ViewVerifiedWorkforceScreenDetails'
-import Dummyupload from './screens/Dummyupload';
+
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -203,42 +203,8 @@ function DrawerNavigator() {
           headerTitleStyle: { flex: 1, textAlign: 'center' },
         }}
       />
-      <Stack.Screen
-        name="DocsUploadScreen"
-        component={DocsUploadScreen}
-        options={{
-          headerShown: true,
-          headerTintColor: '#53C1BA',
-          headerTitle: () => (
-            <View style={styles.titlecontainer}>
-              <Image
-                style={{ width: 30, height: 50 }}
-                source={require('.//assets//images//homeIcon.png')}
-                resizeMode='contain'
-              />
-              <Text style={styles.headertext}>Documents Upload</Text>
-            </View>
-          ),
-        }}
-      />
-      <Stack.Screen
-        name="DummyUp"
-        component={Dummyupload}
-        options={{
-          headerShown: true,
-          headerTintColor: '#53C1BA',
-          headerTitle: () => (
-            <View style={styles.titlecontainer}>
-              <Image
-                style={{ width: 30, height: 50 }}
-                source={require('.//assets//images//homeIcon.png')}
-                resizeMode='contain'
-              />
-              <Text style={styles.headertext}>Documents Upload</Text>
-            </View>
-          ),
-        }}
-      />
+      
+      
 
 
     </Drawer.Navigator>
