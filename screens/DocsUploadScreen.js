@@ -10,42 +10,32 @@ import { Card } from 'react-native-elements';
 
 const DocsUploadScreen = () => {
     const [selectedImage, setSelectedImage] = useState();
-    const [fileType, setFileType] = useState();
+
     function takeImageHandler(imageUri) {
-        const filePath = imageUri.uri;
-
-        const cleanedFilePath = filePath.replace('file:///', 'file:/');
-        // console.log(cleanedFilePath)
-        //console.log(imageUri)
-
         setSelectedImage(imageUri.uri);
-        setFileType(imageUri.type)
-        console.log("Hii")
-        console.log(imageUri.uri)
-        console.log(imageUri.type)
     }
 
     const [AdhaarPicFront, setAdhaarPicFront] = useState();
 
     function takeImageHandlerAdhaarPicFront(imageUri) {
-        setAdhaarPicFront(imageUri);
+        setAdhaarPicFront(imageUri.uri);
     }
     const [AdhaarPicBack, setAdhaarPicBack] = useState();
 
     function takeImageHandlerAdhaarPicBack(imageUri) {
-        setAdhaarPicBack(imageUri);
+        setAdhaarPicBack(imageUri.uri);
     }
 
     const [OtherIDPicFront, setOtherIDPicFront] = useState();
 
     function takeImageHandlerOtherIDPicFront(imageUri) {
-        setOtherIDPicFront(imageUri);
+        setOtherIDPicFront(imageUri.uri);
     }
 
     const [OtherIDPicBack, setOtherIDPicBack] = useState();
 
     function takeImageHandlerOtherIDPicBack(imageUri) {
-        setOtherIDPicBack(imageUri);
+        setOtherIDPicBack(imageUri.uri);
     }
 
     const authCtx = useContext(AuthContext);
@@ -55,28 +45,26 @@ const DocsUploadScreen = () => {
 
 
 
-    async function uploadImages() {
-        let fileUri = selectedImage;
+    async function uploadImagesAdhaarAndOtherID(fileUri, fileType,filename,frontorBack) {
+        //let fileUri = AdhaarPicFront;
         let workforceId = wfid;
-        let fileType = "1";
+        //let fileType = 2;
 
         const token = jwtToken
         console.log(workforceId);
         const url = "http://www.kushalkaamgar.com/kk.api/workforce/fileupload";
 
         try {
-            // const file = await FileSystem.readAsStringAsync(fileUri, {
-            //     encoding: FileSystem.EncodingType.Base64,
-            // });
-
             const formData = new FormData();
             formData.append('WorkforceId', workforceId);
+            formData.append('Name', filename)
             formData.append('file', {
                 uri: fileUri,
                 name: 'image.jpg',
-                type: 'image/jpeg', // Adjust the file type if needed
+                type: 'image/jpeg',
             });
             formData.append('fileType', fileType);
+            formData.append('fileFrontBack', frontorBack);
 
             const response = await fetch(url, {
                 method: 'POST',
@@ -118,6 +106,14 @@ const DocsUploadScreen = () => {
 
                         <Text style={styles.textshowncenter}>Upload Photo</Text>
                         <ImagePicker onTakeImage={takeImageHandler} />
+
+                        <View>
+                            <TouchableOpacity
+                                style={styles.AddExperienceButton}
+                                onPress={() => uploadImagesAdhaarAndOtherID(selectedImage, 1, 'photograph.jpg', 1)}>
+                                <Text style={{ color: '#fff', paddingBottom: 10 }}>Upload Photograph</Text>
+                            </TouchableOpacity>
+                        </View>
                     </Card>
 
                     <Card elevation={7} containerStyle={{ borderRadius: 10, marginBottom: 5 }}>
@@ -127,8 +123,24 @@ const DocsUploadScreen = () => {
                         <Text style={styles.textshown}>1. Front Image</Text>
                         <ImagePicker onTakeImage={takeImageHandlerAdhaarPicFront} />
 
+                        <View>
+                            <TouchableOpacity
+                                style={styles.AddExperienceButton}
+                                onPress={() => uploadImagesAdhaarAndOtherID(AdhaarPicFront,2,'adhaarfront.jpg',1)}>
+                                <Text style={{ color: '#fff', paddingBottom: 10 }}>Upload Front Image</Text>
+                            </TouchableOpacity>
+                        </View>
+
                         <Text style={styles.textshown}>2. Back Image</Text>
                         <ImagePicker onTakeImage={takeImageHandlerAdhaarPicBack} />
+
+                        <View>
+                            <TouchableOpacity
+                                style={styles.AddExperienceButton}
+                                onPress={() => uploadImagesAdhaarAndOtherID(AdhaarPicBack, 2, 'adhaarback.jpg', 2)}>
+                                <Text style={{ color: '#fff', paddingBottom: 10 }}>Upload Back Image</Text>
+                            </TouchableOpacity>
+                        </View>
                     </Card>
 
                     <Card elevation={7} containerStyle={{ borderRadius: 10, marginBottom: 5 }}>
@@ -137,19 +149,29 @@ const DocsUploadScreen = () => {
                         <Text style={styles.textshown}>1. Front Image</Text>
                         <ImagePicker onTakeImage={takeImageHandlerOtherIDPicFront} />
 
+                        <View>
+                            <TouchableOpacity
+                                style={styles.AddExperienceButton}
+                                onPress={() => uploadImagesAdhaarAndOtherID(OtherIDPicFront, 3, 'OtherIDfront.jpg', 1)}>
+                                <Text style={{ color: '#fff', paddingBottom: 10 }}>Upload Front Image</Text>
+                            </TouchableOpacity>
+                        </View>
+
                         <Text style={styles.textshown}>2. Back Image</Text>
                         <ImagePicker onTakeImage={takeImageHandlerOtherIDPicBack} />
-                    </Card>
-
-                    <Card elevation={7} containerStyle={{ borderRadius: 10, marginBottom: 5 }}>
 
                         <View>
                             <TouchableOpacity
                                 style={styles.AddExperienceButton}
-                                onPress={uploadImages}>
-                                <Text style={{ color: '#fff', paddingBottom: 10 }}>Submit</Text>
+                                onPress={() => uploadImagesAdhaarAndOtherID(OtherIDPicBack, 3, 'OtherIDback.jpg', 2)}>
+                                <Text style={{ color: '#fff', paddingBottom: 10 }}>Upload Back Image</Text>
                             </TouchableOpacity>
                         </View>
+                    </Card>
+
+                    <Card elevation={7} containerStyle={{ borderRadius: 10, marginBottom: 5 }}>
+
+                        
                     </Card>
 
                 </View>

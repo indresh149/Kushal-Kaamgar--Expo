@@ -198,9 +198,6 @@ const ViewWorkforceScreen = ({ navigation }) => {
     };
 
 
-    //const [PrimaryLanguagevalue, setPrimaryLanguageValue] = useState(null);
-    // const [PrimaryLanguageisFocus, setPrimaryLanguageIsFocus] = useState(false);
-
     const [WayToCommutevalue, setWayToCommuteValue] = useState(null);
     const [WayToCommuteisFocus, setWayToCommuteIsFocus] = useState(false);
 
@@ -847,7 +844,7 @@ const ViewWorkforceScreen = ({ navigation }) => {
                                                 return (
                                                     <LocationPreferencesFields
                                                         index={index}
-                                                        // data = {Locationdata}
+                                                         //data = {Locationdata}
                                                         onChangeLocationPrefId={txt => {
                                                             changeLocationPrefID(index, txt);
                                                         }}
