@@ -324,7 +324,6 @@ function WelcomeScreen({ navigation }) {
 
     async function submitHandler(firstname, middlename, lastname, email, phonenumber, Altphonenumber, AdhaarIDNumber, OtherIDNumber,
         CurrentAddress, PostalCodeCurrentAddress, PermanentAddress, PostalCodePermanentAddress, CriminalRecordDescription) {
-
         setFirstName(firstname)
         setMiddleName(middlename)
         setLastName(lastname)

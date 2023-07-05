@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Alert, FlatList, ScrollView, Button, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
+import { Alert, FlatList, ScrollView, Button, StyleSheet,Image, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
 import { AuthContext } from '../store/auth-context';
 import LoadingOverlay from '../components/ui/LoadingOverlay';
 import { useRoute } from '@react-navigation/native';
@@ -71,6 +71,92 @@ const ViewApprovedWorkforceScreenDetails = () => {
 
         fetchData();
     }, []);
+
+
+    const [userImagedata, setUserImageData] = useState(null);
+
+    useEffect(() => {
+        const fetchImageData = async () => {
+            try {
+            const response = await axios.get(`http://www.kushalkaamgar.com/kk.api/workforce/getPhotograph/${param1}`, {
+                headers: {
+                    'Authorization': `Bearer ${jwtToken}`
+                }
+            });
+
+            var dd = JSON.parse(JSON.stringify(response.data))
+            console.log(dd.frontFileData)
+                setUserImageData(dd.frontFileData);
+                
+            }
+            catch (error) {
+                console.log(error)
+            }
+
+
+        };
+
+        fetchImageData();
+    }, []);
+
+    const [userAdhaarFrontImagedata, setUserAdhaarFrontImageData] = useState(null);
+    const [userAdhaarBackImagedata, setUserAdhaarBackImageData] = useState(null);
+
+
+    useEffect(() => {
+        const fetchAdhaarImageData = async () => {
+            try {
+            
+                const response = await axios.get(`http://www.kushalkaamgar.com/kk.api/workforce/getAadharCard/${param1}`, {
+                    headers: {
+                        'Authorization': `Bearer ${jwtToken}`
+                    }
+                });
+
+                var dd = JSON.parse(JSON.stringify(response.data))
+                console.log(dd.frontFileData)
+                setUserAdhaarFrontImageData(dd.frontFileData);
+                setUserAdhaarBackImageData(dd.backFileData);
+                
+            }
+            catch (error) {
+                console.log(error)
+            }
+        };
+
+        fetchAdhaarImageData();
+    }, []);
+
+    const [userOtherIDFrontImagedata, setUserOtherIDFrontImageData] = useState(null);
+    const [userOtherIDBackImagedata, setUserOtherIDBackImageData] = useState(null);
+
+
+    useEffect(() => {
+        const fetchOtherIDImageData = async () => {
+            try {
+                
+           
+            const response = await axios.get(`http://www.kushalkaamgar.com/kk.api/workforce/getOtherIdCard/${param1}`, {
+                headers: {
+                    'Authorization': `Bearer ${jwtToken}`
+                }
+            });
+
+            var dd = JSON.parse(JSON.stringify(response.data))
+            console.log(dd.frontFileData)
+            setUserOtherIDFrontImageData(dd.frontFileData);
+                setUserOtherIDBackImageData(dd.backFileData);
+                
+            }
+            catch (error) {
+                console.log(error)
+            }
+        };
+
+        fetchOtherIDImageData();
+    }, []);
+
+
 
     const [otpStatus, setOTPStatus] = useState('');
 
@@ -188,27 +274,96 @@ const ViewApprovedWorkforceScreenDetails = () => {
 
                 </Card>
 
-                <Card elevation={7} containerStyle={{ borderRadius: 10, marginBottom:10}}>
+                <Card elevation={7} containerStyle={{ borderRadius: 10, }}>
                     <Text style={styles.headline}>Image Files</Text>
+
 
                     <Card elevation={7} containerStyle={{ borderRadius: 10, }}>
                         <Text style={styles.headline}>Photograph </Text>
+
+                        <Image
+                            style={{
+                                width: 270,
+                                height: 200,
+                                resizeMode: 'contain',
+                            }}
+                            source={{
+                                uri:
+                                    `data:image/png;base64,${userImagedata}`,
+                            }}
+
+
+                        />
                     </Card>
 
                     <Card elevation={7} containerStyle={{ borderRadius: 10, }}>
                         <Text style={styles.headline}>Aadhaar  </Text>
                         <Text style={styles.headline}>Front</Text>
+                        <Image
+                            style={{
+                                width: 270,
+                                height: 200,
+                                resizeMode: 'contain',
+                            }}
+                            source={{
+                                uri:
+                                    `data:image/png;base64,${userAdhaarFrontImagedata}`,
+                            }}
+
+
+                        />
+
                         <Text style={styles.headline}>Back</Text>
+                        <Image
+                            style={{
+                                width: 270,
+                                height: 200,
+                                resizeMode: 'contain',
+                            }}
+                            source={{
+                                uri:
+                                    `data:image/png;base64,${userAdhaarBackImagedata}`,
+                            }}
+
+
+                        />
                     </Card>
 
 
                     <Card elevation={7} containerStyle={{ borderRadius: 10, }}>
                         <Text style={styles.headline}>Other ID: </Text>
                         <Text style={styles.headline}>Front</Text>
+                        <Image
+                            style={{
+                                width: 270,
+                                height: 200,
+                                resizeMode: 'contain',
+                            }}
+                            source={{
+                                uri:
+                                    `data:image/png;base64,${userOtherIDFrontImagedata}`,
+                            }}
+
+
+                        />
                         <Text style={styles.headline}>Back</Text>
+                        <Image
+                            style={{
+                                width: 270,
+                                height: 200,
+                                resizeMode: 'contain',
+                            }}
+                            source={{
+                                uri:
+                                    `data:image/png;base64,${userOtherIDBackImagedata}`,
+                            }}
+
+
+                        />
                     </Card>
 
                 </Card>
+
 
 
             </View>

@@ -405,6 +405,96 @@ const ViewWorkforceScreen = ({ navigation }) => {
         }
     }, [initialOtherIDValue, initialPrimaryLanguageValue, initialQualificationTypeValue, initialGenderValue, initialMaritalStatusValue, initialOtherLanguageValue, userdata]);
 
+
+    function updateSubmitHandler() {
+        const finaldataupdated = {
+            workforce:
+            {
+                id: workforceIDStored,
+                cellphone: phonenumber,
+                cellphoneAlt: Altphonenumber,
+                adhaarId: AdhaarIDNumber,
+                otherIdNumber: OtherIDNumber,
+                otherIdType: OtherIDvalue,
+                idNumberKey: null,
+                email: email,
+                dateOfBirth: date,
+                genderId: Gendervalue,
+                isMarried: MaritalStatusvalue,
+                isCriminalRecord: criminalRecordvalue,
+                qualificationId: QualificationTypevalue,
+                primaryLanguageId: primaryLanguageValue,
+                isOtherLanguage: isOtherLanguagevalue,
+                commuteById: WayToCommutevalue,
+                isCompleted: true,
+                isVerified: true,
+                isApproved: false
+            },
+            workforceTranslations: [
+                {
+                    languageId: "en",
+                    firstName: firstname,
+                    middleName: middlename,
+                    lastName: lastname,
+                    criminalRecordDesc: CriminalRecordDescription
+                }
+            ],
+            currentAddresses: [
+                {
+                    languageId: "en",
+                    address: CurrentAddress,
+                    postalCode: PostalCodeCurrentAddress
+                }
+            ],
+            permanentAddresses: [
+                {
+                    languageId: "en",
+                    address: PermanentAddress,
+                    postalCode: PostalCodePermanentAddress
+                }
+            ],
+            professions: experience.map((exe) => ({
+                professionId: exe.ProfessionId,
+                experienceInMonths: exe.ExperienceInMonths,
+                selfRating: exe.SelfRating,
+                actualWage: exe.ActualWage,
+                expectedWage: exe.ExpectedWage,
+                isWorkEquipmentAvailable: exe.isWorkEquipmentAvailable
+
+            })),
+            locationPreferences: null,
+            otherLanguageIds: otherKnownLangData,
+        }
+        updateWorkforce(finaldataupdated)
+    }
+
+    const headers = {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+    };
+
+    async function updateWorkforce(finaldataupdated) {
+        console.log(finaldataupdated);
+        const url = "http://www.kushalkaamgar.com/kk.api/workforce/update"
+        axios.put(url, finaldataupdated, { headers })
+            .then((response) => {
+                console.log('New workforce data updated:', response.data);
+                console.log(response.status)
+                if (response.status == 200) {
+                    Alert.alert('Workforce data updated')
+                    navigation.navigate('DocsUploadScreen');
+                }
+            })
+            .catch((error) => {
+                console.log('Error updating new workforce data:', error);
+                if (error == "Network Error") {
+                    Alert.alert("Please check your internet connection")
+                }
+            });
+
+    }
+
+
     if (!userdata) {
         return <LoadingOverlay message="Loading..." />;
     }
@@ -1065,24 +1155,14 @@ const ViewWorkforceScreen = ({ navigation }) => {
 
 
 
-                                {workforceIDStored == null ?
-                                    <View>
-                                        <TouchableOpacity
-                                            style={styles.AddExperienceButton}
-                                            onPress={handleSubmit}>
-                                            <Text style={{ color: '#fff', paddingBottom: 10 }}>Next</Text>
-                                        </TouchableOpacity>
-                                    </View>
-                                    :
-                                    <View>
-                                        <TouchableOpacity
-                                            style={styles.AddExperienceButton}
-                                            onPress={updateSubmitHandler}>
-                                            <Text style={{ color: '#fff', paddingBottom: 10 }}>Update</Text>
-                                        </TouchableOpacity>
-                                    </View>
-
-                                }
+                                <View>
+                                    <TouchableOpacity
+                                        style={styles.AddExperienceButton}
+                                        onPress={updateSubmitHandler}>
+                                        <Text style={{ color: '#fff', paddingBottom: 10 }}>Update</Text>
+                                    </TouchableOpacity>
+                                </View>
+ 
                             </Card>
 
 
