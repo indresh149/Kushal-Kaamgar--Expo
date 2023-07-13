@@ -85,8 +85,8 @@ const registerValidationSchema = yup.object().shape({
     firstname: yup.string()
         .required('First Name is required'),
     middlename: yup.string(),
-    lastname: yup.string(),
-
+    lastname: yup.string()
+        .required('Last Name is required'),
     email: yup.string()
         .email('Please enter valid email'),
     phonenumber: yup.string()
@@ -105,16 +105,21 @@ const registerValidationSchema = yup.object().shape({
     OtherIDNumber: yup.string()
         .min(3, 'Must be atleast 3 digits')
         .max(24, 'Must be atmost 24 digits'),
-    CurrentAddress: yup.string(),
+    CurrentAddress: yup.string()
+         .required("Current Address is required"),
     PostalCodeCurrentAddress: yup.string()
         .min(6, 'Must be atleast 6 digits')
+         .required('Postal Code is required')
         .matches(/^[0-9]+$/, "Must be only digits"),
-    PermanentAddress: yup.string(),
+    PermanentAddress: yup.string()
+         .required("Permanent Address is required"),
     PostalCodePermanentAddress: yup.string()
         .min(6, 'Must be atleast 6 digits')
+        .required('Postal Code is required')
         .matches(/^[0-9]+$/, "Must be only digits"),
     CriminalRecordDescription: yup.string()
         .min(4, 'Must be atleast 4 letters')
+        .required('Criminal Discription is required'),
 });
 
 
@@ -340,11 +345,23 @@ const ViewWorkforceScreen = ({ navigation }) => {
     const [isOtherLanguagevalue, setIsOtherLanguagevalue] = useState(null);
 
 
-    const preferenceData = [
-    { preferenceOrder: 0 },
-    { preferenceOrder: 1 },
-    { preferenceOrder: 2 },
-  ];
+    const dataa = [
+        {
+            "locationPreferenceId": 2,
+            "locationPreferenceName": "Within Block",
+            "preferenceOrder": null
+        },
+        {
+            "locationPreferenceId": 4,
+            "locationPreferenceName": "Nearby Districts",
+            "preferenceOrder": null
+        },
+        {
+            "locationPreferenceId": 5,
+            "locationPreferenceName": "Within State",
+            "preferenceOrder": null
+        }
+    ];
 
     useEffect(() => {
         const fetchData = async () => {
@@ -362,6 +379,8 @@ const ViewWorkforceScreen = ({ navigation }) => {
                 setInitialMaritalStatusValue(response.data.workforce.isMarried);
                 setInitialOtherLanguageValue(response.data.workforce.isOtherLanguage);
                 console.log(response.data);
+                console.log("Hii test");
+                console.log(dataa[0]);
             } catch (error) {
                 console.log(error);
             }
@@ -410,7 +429,7 @@ const ViewWorkforceScreen = ({ navigation }) => {
         const finaldataupdated = {
             workforce:
             {
-                id: workforceIDStored,
+                id: param1,
                 cellphone: phonenumber,
                 cellphoneAlt: Altphonenumber,
                 adhaarId: AdhaarIDNumber,
@@ -418,7 +437,7 @@ const ViewWorkforceScreen = ({ navigation }) => {
                 otherIdType: OtherIDvalue,
                 idNumberKey: null,
                 email: email,
-                dateOfBirth: date,
+                dateOfBirth: null,
                 genderId: Gendervalue,
                 isMarried: MaritalStatusvalue,
                 isCriminalRecord: criminalRecordvalue,
@@ -482,7 +501,9 @@ const ViewWorkforceScreen = ({ navigation }) => {
                 console.log(response.status)
                 if (response.status == 200) {
                     Alert.alert('Workforce data updated')
-                    navigation.navigate('DocsUploadScreen');
+                    navigation.navigate('ViewDocsUploadScreen', {
+                        param1: param1,
+                    });
                 }
             })
             .catch((error) => {
@@ -929,12 +950,13 @@ const ViewWorkforceScreen = ({ navigation }) => {
                                     <View>
                                         <FlatList
                                             scrollEnabled={false}
-                                            data={data}
+                                            data={dataa}
                                             renderItem={({ item, index }) => {
                                                 return (
                                                     <LocationPreferencesFields
                                                         index={index}
-                                                         //data = {Locationdata}
+        
+                                                        //data={dataa[0]}
                                                         onChangeLocationPrefId={txt => {
                                                             changeLocationPrefID(index, txt);
                                                         }}
@@ -952,7 +974,7 @@ const ViewWorkforceScreen = ({ navigation }) => {
                                                                 setData(xyz);
                                                             }
                                                         }}
-                                                       // preferenceData={preferenceData}
+                                                     
                                                     />
 
                                                 );

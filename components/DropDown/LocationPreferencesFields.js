@@ -17,13 +17,17 @@ const data = [
 
 const LocationPreferencesFields = ({
     index,
+    //data,
     onChangeLocationPrefId,
     onChnageLocationPrefOrder,
     onClickRemove,
 }) => {
 
-    const [value, setValue] = useState(null);
+   const [value, setValue] = useState(null);
+    console.log(data)
+    //const [value, setValue] = useState(data[0].locationPreferenceId);
     const [isFocus, setIsFocus] = useState(false);
+    //const [valuee, setValuee] = useState(data[0]);
 
     // const handleDroppdownOptionSelect = (item) => {
     //     setValue(item.value);

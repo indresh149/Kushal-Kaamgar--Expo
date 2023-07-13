@@ -266,7 +266,7 @@ const ViewCompleteWorkforceScreenDetails = () => {
 
                         <Image
                             style={{
-                                width: 270,
+                                width: 370,
                                 height: 200,
                                 resizeMode: 'contain',
                             }}
@@ -274,8 +274,6 @@ const ViewCompleteWorkforceScreenDetails = () => {
                                 uri:
                                     `data:image/png;base64,${userImagedata}`,
                             }}
-
-
                         />
                     </Card>
 
@@ -307,8 +305,6 @@ const ViewCompleteWorkforceScreenDetails = () => {
                                 uri:
                                     `data:image/png;base64,${userAdhaarBackImagedata}`,
                             }}
-
-
                         />
                     </Card>
 
@@ -326,8 +322,6 @@ const ViewCompleteWorkforceScreenDetails = () => {
                                 uri:
                                     `data:image/png;base64,${userOtherIDFrontImagedata}`,
                             }}
-
-
                         />
                         <Text style={styles.headline}>Back</Text>
                         <Image

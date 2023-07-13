@@ -18,10 +18,6 @@ import Checkbox from 'expo-checkbox';
 import Custom_Dropdown from '../components/DropDown/Custom_Dropdown';
 import { Card } from 'react-native-elements';
 import DateTimePicker from '@react-native-community/datetimepicker';
-
-
-
-
 const OtherIDdata = [
     { OtherIDlabel: 'Voter ID', OtherIDvalue: '1' },
     { OtherIDlabel: 'Ration Card', OtherIDvalue: '2' },
@@ -86,8 +82,8 @@ const registerValidationSchema = yup.object().shape({
     firstname: yup.string()
         .required('First Name is required'),
     middlename: yup.string(),
-    lastname: yup.string(),
-
+    lastname: yup.string()
+        .required('Last Name is required'),
     email: yup.string()
         .email('Please enter valid email'),
     phonenumber: yup.string()
@@ -99,16 +95,20 @@ const registerValidationSchema = yup.object().shape({
         .max(10, 'Must be exactlt 10 digits')
         .matches(/^[0-9]+$/, "Must be only digits"),
     AdhaarIDNumber: yup.string()
-        .min(12, 'Must be exactly 12 digits')
-        .max(12, 'Must be exactlt 12 digits')
+        .min(14, 'Must be exactly 14 digits')
+        .max(14, 'Must be exactlt 14 digits')
         .matches(/^[0-9]+$/, "Must be only digits"),
+       // .required('AdhaarId is required'),
     OtherIDNumber: yup.string()
-        .min(3, 'Must be atleast 3 digits')
-        .max(24, 'Must be atmost 24 digits'),
+        .when("AdhaarIDNumber", {
+            is: null,
+            then: (schema) => schema.required("OtherID "),
+            otherwise: (schema) => schema.notRequired('kdkd'),
+        }),
+        
     CurrentAddress: yup.string(),
 
     PostalCodeCurrentAddress: yup.string()
-
         .min(6, 'Must be atleast 6 digits')
         .matches(/^[0-9]+$/, "Must be only digits"),
     PermanentAddress: yup.string(),
@@ -124,23 +124,21 @@ const registerValidationSchema = yup.object().shape({
 
 
 
-
-
 function WelcomeScreen({ navigation }) {
 
-    const [firstname, setFirstName] = useState('');
-    const [middlename, setMiddleName] = useState('');
-    const [lastname, setLastName] = useState('');
-    const [email, setEmail] = useState('');
-    const [phonenumber, setPhoneNumber] = useState('');
-    const [Altphonenumber, setAltPhoneNumber] = useState('');
-    const [AdhaarIDNumber, setAdhaarIDNumber] = useState('');
-    const [OtherIDNumber, setOtherIDNumber] = useState('');
-    const [CurrentAddress, setCurrentAddress] = useState('');
-    const [PostalCodeCurrentAddress, setPostalCodeCurrentAddress] = useState('');
-    const [PermanentAddress, setPermanentAddress] = useState('');
-    const [PostalCodePermanentAddress, setPostalCodePermanentAddress] = useState('');
-    const [CriminalRecordDescription, setCriminalRecordDescription] = useState('');
+    const [firstname, setFirstName] = useState(null);
+    const [middlename, setMiddleName] = useState(null);
+    const [lastname, setLastName] = useState(null);
+    const [email, setEmail] = useState(null);
+    const [phonenumber, setPhoneNumber] = useState(null);
+    const [Altphonenumber, setAltPhoneNumber] = useState(null);
+    const [AdhaarIDNumber, setAdhaarIDNumber] = useState(null);
+    const [OtherIDNumber, setOtherIDNumber] = useState(null);
+    const [CurrentAddress, setCurrentAddress] = useState(null);
+    const [PostalCodeCurrentAddress, setPostalCodeCurrentAddress] = useState(null);
+    const [PermanentAddress, setPermanentAddress] = useState(null);
+    const [PostalCodePermanentAddress, setPostalCodePermanentAddress] = useState(null);
+    const [CriminalRecordDescription, setCriminalRecordDescription] = useState(null);
 
     const [fetchedMessage, setFetchedMesssage] = useState([]);
 
@@ -246,11 +244,6 @@ function WelcomeScreen({ navigation }) {
     };
 
     const [selectedDate, setSelectedDate] = useState('');
-
-
-   
-
-
 
     const [adhaarNumber, setAdhaarNumber] = useState('');
 
@@ -411,7 +404,9 @@ function WelcomeScreen({ navigation }) {
                 authCtx.addworkforceID(wid)
                 if (response.status == 200) {
                     Alert.alert('New workforce data added')
-                    navigation.navigate('DocsUploadScreen');
+                    navigation.navigate('DocsUploadScreen', {
+                        param1: finaldata,
+                    });
                 }
                 if (response.status == 401) {
                     Alert.alert('Your session has expired. Please login again')
@@ -609,6 +604,9 @@ function WelcomeScreen({ navigation }) {
                                     keyboardType="numeric"
                                     maxLength={14} // 12 digits and 2 hyphens
                                 />
+                                {(errors.AdhaarIDNumber && touched.AdhaarIDNumber) &&
+                                    <Text style={styles.errors}>{errors.AdhaarIDNumber}</Text>
+                                }
 
 
                                 <TextInput

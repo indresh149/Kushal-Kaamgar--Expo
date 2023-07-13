@@ -29,6 +29,7 @@ import ViewWorkforceScreen from './screens/ViewWorkforceScreen';
 import ViewCompleteWorkforceScreenDetails from './screens/ViewCompleteWorkforceScreenDetails'
 import ViewApprovedWorkforceScreenDetails from './screens/ViewApprovedWorkforceScreenDetails'
 import ViewVerifiedWorkforceScreenDetails from './screens/ViewVerifiedWorkforceScreenDetails'
+import ViewDocsUploadScreen from './screens/ViewDocsUploadScreen';
 
 
 const Stack = createNativeStackNavigator();
@@ -52,7 +53,7 @@ function DrawerNavigator() {
       }}
     >
       <Drawer.Screen
-        name="Add Workforce"
+        name="AddWorkforce"
         component={WelcomeScreen}
         options={{
           drawerIcon: ({ color }) => (
@@ -84,7 +85,7 @@ function DrawerNavigator() {
       />
 
       <Drawer.Screen
-        name="Incomplete Workforce List"
+        name="IncompleteWorkforceList"
         component={Incomplete_workforceScreen}
         options={{
           drawerIcon: ({ color }) => (
@@ -308,6 +309,26 @@ function AuthenticatedStack() {
           ),
         }}
       />
+
+      <Stack.Screen
+        name="ViewDocsUploadScreen"
+        component={ViewDocsUploadScreen}
+        options={{
+          headerShown: true,
+          headerTintColor: '#53C1BA',
+          headerTitle: () => (
+            <View style={styles.titlecontainer}>
+              <Image
+                style={{ width: 30, height: 50 }}
+                source={require('.//assets//images//homeIcon.png')}
+                resizeMode='contain'
+              />
+              <Text style={styles.headertext}>Docs Upload</Text>
+            </View>
+          ),
+        }}
+      />
+
       <Stack.Screen
         name="ViewCompleteWorkforceDetails"
         component={ViewCompleteWorkforceScreenDetails}
